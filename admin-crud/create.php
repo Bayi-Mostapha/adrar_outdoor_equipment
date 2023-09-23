@@ -9,17 +9,19 @@
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $product_name = $_POST["name"];
         $product_desc = $_POST["desc"];
-        if(empty($product_name )|| empty($product_desc)){
+        $product_price = $_POST["price"];
+
+        if(empty($product_name )|| empty($product_desc) || empty($product_price)){
             header("Location: create.php?error=empty");
             exit();
         }
         
-        $sql = "INSERT INTO products (product_name, product_desc, product_img) VALUES (?, ?, '');";
+        $sql = "INSERT INTO products (product_name, product_desc, product_img, price) VALUES (?, ?, '', ?);";
         $stmt = $mysqli->stmt_init();
         if(!$stmt->prepare($sql)){
             die("SQL error: " . $mysqli->error);
         }
-        $stmt->bind_param("ss", $product_name, $product_desc);
+        $stmt->bind_param("ssd", $product_name, $product_desc, $product_price);
         $stmt->execute();
         header("Location: ../admin.php?succes=create");
         exit();
@@ -41,6 +43,10 @@
         <div>
             <label for="desc">product description</label>
             <textarea name="desc" id="desc" cols="30" rows="10"></textarea>
+        </div>
+        <div>
+            <label for="price">product price</label>
+            <input type="text" name="price" id="price">
         </div>
         <button type="submit">save</button>
     </form>

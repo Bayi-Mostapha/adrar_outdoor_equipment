@@ -29,6 +29,7 @@
                         <h2>$row[product_name]</h2>
                         <img src=\"\">
                         <p>$row[product_desc]</p>
+                        <p>$row[price]</p>
                         <div class=\"btns\">
                             <a href=\"admin-crud/update.php?id=$row[id]\">edit</a>
                             <a href=\"admin-crud/delete.php?id=$row[id]\">delete</a>
