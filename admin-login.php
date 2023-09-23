@@ -25,6 +25,8 @@
             if (password_verify($password, $row["password"])){
                 session_start();
                 $_SESSION["id"] = $row["id"];
+                $_SESSION["name"] = $row["name"];
+                $_SESSION["is_admin"] = true;
                 header("Location: admin.php");
                 exit();
             } else {

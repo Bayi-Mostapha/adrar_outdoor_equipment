@@ -31,6 +31,8 @@
             if (password_verify($password, $row["password"])){
                 session_start();
                 $_SESSION["id"] = $row["id"];
+                $_SESSION["name"] = $row["name"];
+                $_SESSION["is_admin"] = false;
                 header("Location: home.php");
                 exit();
             } else {
