@@ -1,10 +1,16 @@
 <?php 
     include_once("db-connection.php");
-
+    $email = "";
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $email = $_POST["email"];
         $password = $_POST["password"];
 
+        if(empty($email) || empty($password)){
+            $url = "Location: login.php?error=empty";
+            $url .= empty($email) ? "" : "&email=$email";
+            header($url);
+            exit();
+        }
 
         $sql = "SELECT * FROM users WHERE email=?";
         $stmt = $mysqli->stmt_init();
@@ -45,10 +51,35 @@
     <title>login</title>
 </head>
 <body>
+    <div class="errors">
+        <p class="error">
+            <?php
+                if($_SERVER["REQUEST_METHOD"] == "GET"){
+                    if(isset($_GET["error"])){
+                        $error = $_GET["error"];
+                        if(isset($error)){
+                            if($error == "empty"){
+                                echo "all fields must be filled";
+                            } elseif($error == "invalid_email"){
+                                echo "email not valid";
+                            } elseif($error == "wrong_login"){
+                                echo "wrong login information";
+                            } elseif($error == "email_notexist"){
+                                echo "an account with this email does not exist, <a href=\"sign-up.php\">sign up</a>";
+                            }
+                        }
+                    }
+                    if(isset($_GET["email"])){
+                        $email = $_GET["email"];
+                    }
+                }
+            ?>
+        </p>
+    </div>
     <form action="login.php" method="post" novalidate>
         <div>
             <label for="email">email:</label>
-            <input type="email" name="email" id="email">
+            <input type="email" name="email" id="email" value=<?php echo $email; ?>>
         </div>
         <div>
             <label for="password">password:</label>

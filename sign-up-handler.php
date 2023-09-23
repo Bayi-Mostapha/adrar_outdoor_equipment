@@ -7,26 +7,25 @@
         $password = $_POST["password"];
         $confirm_password = $_POST["confirm_password"];
 
-        if(empty($name)){
-            header("Location: sign-up.html?error=empty_name");
+        if(empty($name) || empty($email) || empty($password) || empty($confirm_password)){
+            $url="Location: sign-up.php?error=empty";
+            $url .= empty($name) ? "" : "&name=$name";
+            $url .= empty($email) ? "" : "&email=$email";
+            header($url);
             exit();
         }
 
-        if(empty($email)){
-            header("Location: sign-up.html?error=empty_email");
-            exit();
-        }
         if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            header("Location: sign-up.html?error=wrong_email");
+            header("Location: sign-up.php?error=wrong_email&name=$name");
             exit();
         }
 
         if(strlen($password) < 8){
-            header("Location: sign-up.html?error=password_short");
+            header("Location: sign-up.php?error=password_short&name=$name&email=$email");
             exit();
         }
         if($password !== $confirm_password){
-            header("Location: sign-up.html?error=passwords_not_match");
+            header("Location: sign-up.php?error=passwords_not_match&name=$name&email=$email");
             exit();
         }
         $hash = password_hash($password, PASSWORD_DEFAULT);
@@ -40,13 +39,13 @@
         try{
             $stmt->execute();
         } catch(mysqli_sql_exception) {
-            header("Location: sign-up.html?error=email_taken");
+            header("Location: sign-up.php?error=email_taken&name=$name");
             exit();
         }
 
         header("Location: login.php?succes=signup");
         exit();
     } else {
-        header("Location: sign-up.html");
+        header("Location: sign-up.php");
         exit();
     }
