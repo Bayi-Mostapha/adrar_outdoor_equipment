@@ -6,7 +6,7 @@
         $password = $_POST["password"];
 
 
-        $sql = "SELECT * FROM users WHERE email=?";
+        $sql = "SELECT * FROM admins WHERE email=?";
         $stmt = $mysqli->stmt_init();
         if(!$stmt->prepare($sql)){
             die("SQL error: " . $mysqli->error);
@@ -25,7 +25,7 @@
             if (password_verify($password, $row["password"])){
                 session_start();
                 $_SESSION["id"] = $row["id"];
-                header("Location: home.php");
+                header("Location: admin.php");
                 exit();
             } else {
                 header("Location: login.php?error=wrong_login");
@@ -45,7 +45,8 @@
     <title>login</title>
 </head>
 <body>
-    <form action="login.php" method="post" novalidate>
+    <h1>welcome admin</h1>
+    <form action="admin-login.php" method="post" novalidate>
         <div>
             <label for="email">email:</label>
             <input type="email" name="email" id="email">
