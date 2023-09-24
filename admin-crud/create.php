@@ -17,31 +17,44 @@
             exit();
         }
 
+        if(!filter_input(INPUT_POST, "price", FILTER_VALIDATE_INT)){
+            header("Location: create.php?error=invalid_price");
+            exit();
+        }
+
         if ($_FILES["image"]["error"] !== UPLOAD_ERR_OK) {
             switch ($_FILES["image"]["error"]) {
                 case UPLOAD_ERR_PARTIAL:
-                    exit('File only partially uploaded');
+                    header("Location: create.php?error=file_error");
+                    exit();
                     break;
                 case UPLOAD_ERR_NO_FILE:
-                    exit('No file was uploaded');
+                    header("Location: create.php?error=empty");
+                    exit();
                     break;
                 case UPLOAD_ERR_EXTENSION:
-                    exit('File upload stopped by a PHP extension');
+                    header("Location: create.php?error=file_error");
+                    exit();
                     break;
                 case UPLOAD_ERR_FORM_SIZE:
-                    exit('File exceeds MAX_FILE_SIZE in the HTML form');
+                    header("Location: create.php?error=file_error");
+                    exit();
                     break;
                 case UPLOAD_ERR_INI_SIZE:
-                    exit('File exceeds upload_max_filesize in php.ini');
+                    header("Location: create.php?error=file_error");
+                    exit();
                     break;
                 case UPLOAD_ERR_NO_TMP_DIR:
-                    exit('Temporary folder not found');
+                    header("Location: create.php?error=file_error");
+                    exit();
                     break;
                 case UPLOAD_ERR_CANT_WRITE:
-                    exit('Failed to write file');
+                    header("Location: create.php?error=file_error");
+                    exit();
                     break;
                 default:
-                    exit('Unknown upload error');
+                    header("Location: create.php?error=file_error");
+                    exit();
                     break;
             }
         }
@@ -64,11 +77,12 @@
             }
 
             if(!move_uploaded_file($_FILES["image"]["tmp_name"], $destination)){
-                header("Location: ../admin.php?error=moving_file");
+                header("Location: create.php?error=moving_file");
                 exit();
             }
         } else {
-            echo "only images (png, jpeg, jpg) are allowed!!";
+            header("Location: create.php?error=wrong_file_type");
+            exit();
         }
         
         $sql = "INSERT INTO products (product_name, product_desc, product_img, price) VALUES (?, ?, ?, ?);";
@@ -90,6 +104,30 @@
     <title>create product</title>
 </head>
 <body>
+    <div class="errors">
+        <p class="error">
+            <?php
+                if($_SERVER["REQUEST_METHOD"] == "GET"){
+                    if(isset($_GET["error"])){
+                        $error = $_GET["error"];
+                        if(isset($error)) {
+                            if($error == "empty") {
+                                echo "all fields must be filled";
+                            } elseif($error == "moving_file") {
+                                echo "error while uploading file";
+                            } elseif($error == "wrong_file_type") {
+                                echo "only images are allowed (png, jpeg...)";
+                            } elseif($error == "invalid_price") {
+                                echo "price must be a number";
+                            } elseif($error == "file_error") {
+                                echo "there was an error while uploading your file";
+                            }
+                        }
+                    }
+                }
+            ?>
+        </p>
+    </div>
     <form action="create.php" method="post" enctype="multipart/form-data">
         <div>
             <label for="name">product name</label>

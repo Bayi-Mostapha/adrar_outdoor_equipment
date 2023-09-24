@@ -15,6 +15,34 @@
 </head>
 <body>
     <h1>welcome <?php echo $_SESSION["name"]; ?></h1>
+    <div class="news">
+        <p class="new">
+            <?php
+                if($_SERVER["REQUEST_METHOD"] == "GET"){
+                    if(isset($_GET["error"])) {
+                        $error = $_GET["error"];
+                        if(isset($error)) {
+                            if($error == "undeleted_img") {
+                                echo "there was an error while trying to delete your product";
+                            }
+                        }
+                    } elseif(isset($_GET["succes"])) {
+                        $succes = $_GET["succes"];
+                        if(isset($succes)) {
+                            if($succes == "create") {
+                                echo "product created succesfully";
+                            } elseif($succes == "delete") {
+                                echo "product deleted succesfully";
+                            }
+                            elseif($succes == "update") {
+                                echo "product updated succesfully";
+                            }
+                        }
+                    }
+                }
+            ?>
+        </p>
+    </div>
     <a href="admin-crud/logout.php">logout</a>
     <a href="admin-crud/create.php">add product</a>
 

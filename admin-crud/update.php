@@ -21,40 +21,52 @@
         $stmt = "";
 
         if(empty($product_name )|| empty($product_desc) || empty($price)){
-            header("Location: update.php?error=empty");
+            header("Location: update.php?id=$product_id&error=empty");
             exit();
         }
+
+        if (!filter_input(INPUT_POST, "price", FILTER_VALIDATE_FLOAT)) {
+            header("Location: update.php?id=$product_id&error=invalid_price");
+            exit();
+        }        
 
         if (!empty($_FILES["image"]["name"])) {
             if ($_FILES["image"]["error"] !== UPLOAD_ERR_OK) {
                 switch ($_FILES["image"]["error"]) {
                     case UPLOAD_ERR_PARTIAL:
-                        exit('File only partially uploaded');
+                        header("Location: update.php?id=$product_id&error=file_error");
+                        exit();
                         break;
                     case UPLOAD_ERR_NO_FILE:
-                        exit('No file was uploaded');
                         break;
                     case UPLOAD_ERR_EXTENSION:
-                        exit('File upload stopped by a PHP extension');
+                        header("Location: update.php?id=$product_id&error=file_error");
+                        exit();
                         break;
                     case UPLOAD_ERR_FORM_SIZE:
-                        exit('File exceeds MAX_FILE_SIZE in the HTML form');
+                        header("Location: update.php?id=$product_id&error=file_error");
+                        exit();
                         break;
                     case UPLOAD_ERR_INI_SIZE:
-                        exit('File exceeds upload_max_filesize in php.ini');
+                        header("Location: update.php?id=$product_id&error=file_error");
+                        exit();
                         break;
                     case UPLOAD_ERR_NO_TMP_DIR:
-                        exit('Temporary folder not found');
+                        header("Location: update.php?id=$product_id&error=file_error");
+                        exit();
                         break;
                     case UPLOAD_ERR_CANT_WRITE:
-                        exit('Failed to write file');
+                        header("Location: update.php?id=$product_id&error=file_error");
+                        exit();
                         break;
                     default:
-                        exit('Unknown upload error');
+                        header("Location: update.php?id=$product_id&error=file_error");
+                        exit();
                         break;
                 }
             }
             
+            // deleting 
             $sql_img = "SELECT * FROM products WHERE id = ?";
             $img_stmt = $mysqli->stmt_init();
             if(!$img_stmt->prepare($sql_img)){
@@ -69,11 +81,8 @@
                 $product_img = $img_row["product_img"];
             }
             $path = "../uploads/$product_img";
-            if(!unlink($path)){
-                header("Location: ../admin.php?error=img");
-                exit();
-            }
             
+            // get new img 
             $finfo = new finfo(FILEINFO_MIME_TYPE);
             $file_ext = $finfo->file($_FILES["image"]["tmp_name"]);
             $allowed_exts = array("image/jpg", "image/png", "image/jpeg");
@@ -92,11 +101,12 @@
                 }
     
                 if(!move_uploaded_file($_FILES["image"]["tmp_name"], $destination)){
-                    header("Location: ../admin.php?error=moving_file");
+                    header("Location: update.php?id=$product_id&error=moving_file");
                     exit();
                 }
             } else {
-                echo "only images (png, jpeg, jpg) are allowed!!";
+                header("Location: update.php?id=$product_id&error=wrong_file_type");
+                exit();
             }
 
             $sql = "UPDATE products SET product_name = ?, product_desc = ?, product_img = ?, price = ? WHERE id=$product_id;";
@@ -106,7 +116,8 @@
             }
             $stmt->bind_param("sssd", $product_name, $product_desc, $filename, $price);
             $stmt->execute();
-            header("Location: ../admin.php?succes=updateimg");
+            unlink($path);
+            header("Location: ../admin.php?succes=update");
             exit();
         } else {
             $sql = "UPDATE products SET product_name = ?, product_desc = ?, price = ? WHERE id=$product_id;";
@@ -119,7 +130,6 @@
             header("Location: ../admin.php?succes=update");
             exit();
         }
-        
     } elseif ($_SERVER["REQUEST_METHOD"] == "GET"){
         $id = $mysqli->real_escape_string($_GET["id"]);
 
@@ -156,6 +166,30 @@
     <title>edit product</title>
 </head>
 <body>
+    <div class="errors">
+        <p class="error">
+            <?php
+                if($_SERVER["REQUEST_METHOD"] == "GET"){
+                    if(isset($_GET["error"])){
+                        $error = $_GET["error"];
+                        if(isset($error)) {
+                            if($error == "empty") {
+                                echo "all fields must be filled";
+                            } elseif($error == "moving_file") {
+                                echo "error while uploading file";
+                            } elseif($error == "wrong_file_type") {
+                                echo "only images are allowed (png, jpeg...)";
+                            } elseif($error == "invalid_price") {
+                                echo "price must be a number";
+                            } elseif($error == "file_error") {
+                                echo "there was an error while uploading your file";
+                            }
+                        }
+                    }
+                }
+            ?>
+        </p>
+    </div>
     <form action="update.php" method="post" enctype="multipart/form-data">
         <input type="hidden" name="id" value="<?php echo $id; ?>">
         <div>

@@ -1,7 +1,7 @@
 <?php
     session_start();
     if(!isset($_SESSION["id"]) || !$_SESSION["is_admin"]){
-        header("Location: admin-login.php");
+        header("Location: ../admin-login.php");
         exit();
     }
     session_unset();

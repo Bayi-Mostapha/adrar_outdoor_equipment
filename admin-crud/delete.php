@@ -22,7 +22,7 @@
         }
         $path = "../uploads/$product_img";
         if(!unlink($path)){
-            header("Location: ../admin.php?error=img");
+            header("Location: ../admin.php?error=undeleted_img");
             exit();
         }
 
