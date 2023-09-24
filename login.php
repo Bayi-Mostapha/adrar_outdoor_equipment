@@ -36,7 +36,7 @@
                 header("Location: home.php");
                 exit();
             } else {
-                header("Location: login.php?error=wrong_login");
+                header("Location: login.php?error=wrong_login&email=$email");
                 exit();
             }
         } else {

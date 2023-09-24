@@ -15,7 +15,7 @@
 </head>
 <body>
     <h1>welcome <?php echo $_SESSION["name"]; ?></h1>
-
+    <a href="admin-crud/logout.php">logout</a>
     <a href="admin-crud/create.php">add product</a>
 
     <div class="products">
@@ -27,7 +27,7 @@
                     echo "
                     <div class=\"product\">
                         <h2>$row[product_name]</h2>
-                        <img src=\"\">
+                        <img src=\"uploads/$row[product_img]\">
                         <p>$row[product_desc]</p>
                         <p>$row[price]</p>
                         <div class=\"btns\">

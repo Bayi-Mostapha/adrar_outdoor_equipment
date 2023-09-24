@@ -1,10 +1,16 @@
 <?php 
     include_once("db-connection.php");
-
+    $email = "";
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $email = $_POST["email"];
         $password = $_POST["password"];
 
+        if(empty($email) || empty($password)){
+            $url = "Location: admin-login.php?error=empty";
+            $url .= empty($email) ? "" : "&email=$email";
+            header($url);
+            exit();
+        }
 
         $sql = "SELECT * FROM admins WHERE email=?";
         $stmt = $mysqli->stmt_init();
@@ -15,7 +21,7 @@
         try{
             $stmt->execute();
         } catch(mysqli_sql_exception) {
-            header("Location: login.php?error=invalid_email");
+            header("Location: admin-login.php?error=invalid_email");
             exit();
         }
 
@@ -30,11 +36,11 @@
                 header("Location: admin.php");
                 exit();
             } else {
-                header("Location: login.php?error=wrong_login");
+                header("Location: admin-login.php?error=wrong_login&email=$email");
                 exit();
             }
         } else {
-            header("Location: login.php?error=email_notexist");
+            header("Location: admin-login.php?error=email_notexist");
             exit();
         }
     }
@@ -48,10 +54,35 @@
 </head>
 <body>
     <h1>welcome admin</h1>
+    <div class="errors">
+        <p class="error">
+            <?php
+                if($_SERVER["REQUEST_METHOD"] == "GET"){
+                    if(isset($_GET["error"])){
+                        $error = $_GET["error"];
+                        if(isset($error)){
+                            if($error == "empty"){
+                                echo "all fields must be filled";
+                            } elseif($error == "invalid_email"){
+                                echo "email not valid";
+                            } elseif($error == "wrong_login"){
+                                echo "wrong login information";
+                            } elseif($error == "email_notexist"){
+                                echo "an account with this email does not exist";
+                            }
+                        }
+                    }
+                    if(isset($_GET["email"])){
+                        $email = $_GET["email"];
+                    }
+                }
+            ?>
+        </p>
+    </div>
     <form action="admin-login.php" method="post" novalidate>
         <div>
             <label for="email">email:</label>
-            <input type="email" name="email" id="email">
+            <input type="email" name="email" id="email" value=<?php echo $email; ?>>
         </div>
         <div>
             <label for="password">password:</label>
