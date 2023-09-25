@@ -7,7 +7,6 @@
     }
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
-        // filter_input(INPUT_POST, "name", FILTER_SANITIZE_SPECIAL_CHARS)
         $product_name = $mysqli->real_escape_string($_POST["name"]);
         $product_desc = $mysqli->real_escape_string($_POST["desc"]);
         $product_price = $mysqli->real_escape_string($_POST["price"]);
@@ -111,18 +110,19 @@
                 if($_SERVER["REQUEST_METHOD"] == "GET"){
                     if(isset($_GET["error"])){
                         $error = $_GET["error"];
-                        if(isset($error)) {
-                            if($error == "empty") {
-                                echo "all fields must be filled";
-                            } elseif($error == "moving_file") {
-                                echo "error while uploading file";
-                            } elseif($error == "wrong_file_type") {
-                                echo "only images are allowed (png, jpeg...)";
-                            } elseif($error == "invalid_price") {
-                                echo "price must be a number";
-                            } elseif($error == "file_error") {
-                                echo "there was an error while uploading your file";
-                            }
+                        if($error == "empty") {
+                            echo "all fields must be filled";
+                        } elseif($error == "moving_file") {
+                            echo "error while uploading file";
+                        } elseif($error == "wrong_file_type") {
+                            echo "only images are allowed (png, jpeg...)";
+                        } elseif($error == "invalid_price") {
+                            echo "price must be a number";
+                        } elseif($error == "file_error") {
+                            echo "there was an error while uploading your file";
+                        } else {
+                            header("Location: create.php");
+                            exit();
                         }
                     }
                 }

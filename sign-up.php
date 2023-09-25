@@ -18,25 +18,26 @@
                 if($_SERVER["REQUEST_METHOD"] == "GET"){
                     if(isset($_GET["error"])){
                         $error = $_GET["error"];
-                        if(isset($error)){
-                            if($error == "empty"){
-                                echo "all fields must be filled";
-                            } elseif($error == "wrong_email"){
-                                echo "email not valid";
-                            } elseif($error == "password_short"){
-                                echo "password must contain at least 8 characters";
-                            } elseif($error == "passwords_not_match"){
-                                echo "passwords do not match";
-                            } elseif($error == "email_taken"){
-                                echo "email already taken";
-                            }
+                        if($error == "empty"){
+                            echo "all fields must be filled";
+                        } elseif($error == "wrong_email"){
+                            echo "email not valid";
+                        } elseif($error == "password_short"){
+                            echo "password must contain at least 8 characters";
+                        } elseif($error == "passwords_not_match"){
+                            echo "passwords do not match";
+                        } elseif($error == "email_taken"){
+                            echo "email already taken";
+                        } else {
+                            header("Location: sign-up.php");
+                            exit();
                         }
                     }
                     if(isset($_GET["name"])){
-                        $name = $_GET["name"];
+                        $name = filter_input(INPUT_GET, "name", FILTER_SANITIZE_SPECIAL_CHARS);
                     }
                     if(isset($_GET["email"])){
-                        $email = $_GET["email"];
+                        $email = filter_input(INPUT_GET, "email", FILTER_SANITIZE_SPECIAL_CHARS);
                     }
                 }
             ?>

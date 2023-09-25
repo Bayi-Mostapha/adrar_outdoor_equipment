@@ -59,20 +59,21 @@
                 if($_SERVER["REQUEST_METHOD"] == "GET"){
                     if(isset($_GET["error"])){
                         $error = $_GET["error"];
-                        if(isset($error)){
-                            if($error == "empty"){
-                                echo "all fields must be filled";
-                            } elseif($error == "invalid_email"){
-                                echo "email not valid";
-                            } elseif($error == "wrong_login"){
-                                echo "wrong login information";
-                            } elseif($error == "email_notexist"){
-                                echo "an account with this email does not exist, <a href=\"sign-up.php\">sign up</a>";
-                            }
+                        if($error == "empty"){
+                            echo "all fields must be filled";
+                        } elseif($error == "invalid_email"){
+                            echo "email not valid";
+                        } elseif($error == "wrong_login"){
+                            echo "wrong login information";
+                        } elseif($error == "email_notexist"){
+                            echo "an account with this email does not exist, <a href=\"sign-up.php\">sign up</a>";
+                        } else {
+                            header("Location: login.php");
+                            exit();
                         }
                     }
                     if(isset($_GET["email"])){
-                        $email = $_GET["email"];
+                        $email = filter_input(INPUT_GET, "email", FILTER_SANITIZE_SPECIAL_CHARS);
                     }
                 }
             ?>

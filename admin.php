@@ -21,22 +21,24 @@
                 if($_SERVER["REQUEST_METHOD"] == "GET"){
                     if(isset($_GET["error"])) {
                         $error = $_GET["error"];
-                        if(isset($error)) {
-                            if($error == "undeleted_img") {
-                                echo "there was an error while trying to delete your product";
-                            }
+                        if($error == "undeleted_img") {
+                            echo "there was an error while trying to delete your product";
+                        } else {
+                            header("Location: admin.php");
+                            exit();
                         }
                     } elseif(isset($_GET["succes"])) {
                         $succes = $_GET["succes"];
-                        if(isset($succes)) {
-                            if($succes == "create") {
-                                echo "product created succesfully";
-                            } elseif($succes == "delete") {
-                                echo "product deleted succesfully";
-                            }
-                            elseif($succes == "update") {
-                                echo "product updated succesfully";
-                            }
+                        if($succes == "create") {
+                            echo "product created succesfully";
+                        } elseif($succes == "delete") {
+                            echo "product deleted succesfully";
+                        }
+                        elseif($succes == "update") {
+                            echo "product updated succesfully";
+                        } else {
+                            header("Location: admin.php");
+                            exit();
                         }
                     }
                 }
