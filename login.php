@@ -2,8 +2,8 @@
     include_once("db-connection.php");
     $email = "";
     if($_SERVER["REQUEST_METHOD"] == "POST"){
-        $email = $_POST["email"];
-        $password = $_POST["password"];
+        $email = $mysqli->real_escape_string($_POST["email"]);
+        $password = $mysqli->real_escape_string($_POST["password"]);
 
         if(empty($email) || empty($password)){
             $url = "Location: login.php?error=empty";

@@ -2,10 +2,10 @@
     include_once("db-connection.php");
 
     if($_SERVER["REQUEST_METHOD"] == "POST") {
-        $name = $_POST["name"];
-        $email = $_POST["email"];
-        $password = $_POST["password"];
-        $confirm_password = $_POST["confirm_password"];
+        $name = $mysqli->real_escape_string($_POST["name"]);
+        $email = $mysqli->real_escape_string($_POST["email"]);
+        $password = $mysqli->real_escape_string($_POST["password"]);
+        $confirm_password = $mysqli->real_escape_string($_POST["confirm_password"]);
 
         if(empty($name) || empty($email) || empty($password) || empty($confirm_password)){
             $url="Location: sign-up.php?error=empty";

@@ -12,10 +12,10 @@
     $price = "";
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
-        $product_id = $_POST["id"];
-        $product_name = $_POST["name"];
-        $product_desc = $_POST["desc"];
-        $price = $_POST["price"];
+        $product_id = $mysqli->real_escape_string($_POST["id"]);
+        $product_name = $mysqli->real_escape_string($_POST["name"]);
+        $product_desc = $mysqli->real_escape_string($_POST["desc"]);
+        $price = $mysqli->real_escape_string($_POST["price"]);
 
         $filename = "";
         $stmt = "";

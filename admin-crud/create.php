@@ -7,9 +7,10 @@
     }
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
-        $product_name = $_POST["name"];
-        $product_desc = $_POST["desc"];
-        $product_price = $_POST["price"];
+        // filter_input(INPUT_POST, "name", FILTER_SANITIZE_SPECIAL_CHARS)
+        $product_name = $mysqli->real_escape_string($_POST["name"]);
+        $product_desc = $mysqli->real_escape_string($_POST["desc"]);
+        $product_price = $mysqli->real_escape_string($_POST["price"]);
         $filename = "";
 
         if(empty($product_name )|| empty($product_desc) || empty($product_price)){
