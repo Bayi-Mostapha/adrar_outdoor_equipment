@@ -133,6 +133,11 @@
     } elseif ($_SERVER["REQUEST_METHOD"] == "GET"){
         $id = $mysqli->real_escape_string($_GET["id"]);
 
+        if(empty($id)){
+            header("Location: ../admin.php");
+            exit();
+        }
+
         $sql = "SELECT * FROM products WHERE id = ?";
         $stmt = $mysqli->stmt_init();
         if(!$stmt->prepare($sql)){
