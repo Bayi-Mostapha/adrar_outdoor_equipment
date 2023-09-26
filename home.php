@@ -28,6 +28,25 @@
                 ";
         }
     ?>
+    <div class="news">
+        <p class="new">
+            <?php
+                if($_SERVER["REQUEST_METHOD"] == "GET"){
+                    if(isset($_GET["error"])) {
+                        $error = $_GET["error"];
+                        if($error == "product_in_cart") {
+                            echo "product already in cart";
+                        }
+                    } elseif(isset($_GET["succes"])) {
+                        $succes = $_GET["succes"];
+                        if($succes == "add_to_cart") {
+                            echo "product added to cart succesfully";
+                        }
+                    }
+                }
+            ?>
+        </p>
+    </div>
     <div class="products">
         <?php
             $sql = "SELECT * FROM products";

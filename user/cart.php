@@ -23,6 +23,20 @@
             <h1>welcome to your cart, $_SESSION[name]</h1>
             ";
     ?>
+    <div class="news">
+        <p class="new">
+            <?php
+                if($_SERVER["REQUEST_METHOD"] == "GET"){
+                    if(isset($_GET["succes"])) {
+                        $succes = $_GET["succes"];
+                        if($succes == "remove") {
+                            echo "product removed from cart succesfully";
+                        }
+                    }
+                }
+            ?>
+        </p>
+    </div>
     <div class="products">
         <?php
             $sql2 = "SELECT * FROM cart WHERE user_id=$_SESSION[id]";
