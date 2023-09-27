@@ -45,7 +45,7 @@
             ?>
         </p>
     </div>
-    <a href="logout.php">logout</a>
+    <a href="admin-crud/admin-logout.php">logout</a>
     <a href="admin-crud/create.php">add product</a>
 
     <div class="products">

@@ -1,0 +1,264 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900&display=swap'); */
+
+:root {
+    --txt: black;
+    --txt2: white;
+    --gray-txt: rgb(162, 171, 186);
+    --main-color: rgb(43, 68, 250);
+    --main-color2: rgb(17, 13, 161);
+    --main-color-shadow: rgba(43, 68, 250, 0.15);
+    --main-bg: white;
+    --light-gray: rgb(236, 237, 248);
+
+    --parent-default: 1rem;
+
+    --x-small: .7em;
+    --small: .85em;
+    --default: 1em;
+    --default-big: 1.2em;
+    --big: 1.5em;
+    --x-big: 2em;
+    --xx-big: 2.5em;
+
+    /* shadows */
+    --light-border: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    --bold-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+    --normal-shadow: rgba(0, 0, 0, 0.15) 0px 5px 10px 0px;
+    --light-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+html {
+    font-size: 16px;
+}
+
+/* ************************************************* */
+
+body,
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+li {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+input,
+textarea,
+button,
+select {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+:focus {
+    outline: none;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* font-family: 'Nunito', sans-serif; */
+    font-family: sans-serif;
+}
+
+/* ********************************************************************** */
+
+.mb-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.mb-btn:hover {
+    opacity: 0.9;
+}
+
+.mb-btn:active {
+    opacity: 0.85;
+}
+
+.image-container {
+    width: 100%;
+    overflow: hidden;
+}
+
+.image-container img {
+    width: 100%;
+    object-fit: cover;
+}
+
+/* ==== form styles ==== */
+
+input:focus {
+    outline: none;
+}
+
+textarea:focus {
+    outline: none;
+}
+
+label {
+    text-transform: capitalize;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    padding: 5px;
+    text-indent: 5px;
+    font-size: var(--default);
+
+    color: var(--txt);
+    background-color: var(--main-bg);
+    border: 1px solid var(--light-gray);
+    border-radius: 3px;
+}
+
+input::placeholder {
+    font-size: var(--default);
+    color: var(--gray-txt);
+}
+
+textarea {
+    width: 100%;
+    padding: 5px;
+    text-indent: 5px;
+
+    color: var(--txt);
+    background-color: var(--main-bg);
+    border: 1px solid var(--light-gray);
+    border-radius: 3px;
+    resize: vertical;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+    border-color: var(--main-color);
+}
+
+input[type="date"] {
+    width: 100%;
+    padding: 5px;
+    text-indent: 5px;
+    font-size: var(--default);
+
+    color: var(--txt);
+    background-color: var(--main-bg);
+    border: 1px solid var(--light-gray);
+    border-radius: 3px;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    accent-color: var(--main-color);
+}
+
+/* ************************************* */
+
+.loader {
+    background-color: white;
+    height: 100dvh;
+    width: 100%;
+    position: fixed;
+    z-index: 999;
+    top: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader .circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+
+    border-top: 4px solid var(--main-color);
+    border-right: 4px solid var(--main-color);
+    border-bottom: 4px solid var(--main-color);
+    border-left: 4px solid white;
+
+    animation: spin 1s linear infinite;
+}
+
+.hide-overflow {
+    overflow: hidden !important;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* **************************************** */
+
+@media (min-width: 1400px) {
+    html {
+        font-size: 19px;
+    }
+}
+
+@media (min-width: 1600px) {
+    html {
+        font-size: 21px;
+    }
+}
+
+@media (min-width: 1800px) {
+    html {
+        font-size: 24px;
+    }
+}
+
+@media (min-width: 2000px) {
+    html {
+        font-size: 26px;
+    }
+}
+
+@media (min-width: 2500px) {
+    html {
+        font-size: 29px;
+    }
+}
+
+@media (max-width: 1100px) {
+    html {
+        font-size: 13px;
+    }
+}
+
+@media (max-width:300px) {
+    html {
+        font-size: 10px;
+    }
+}

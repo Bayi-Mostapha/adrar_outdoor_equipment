@@ -7,6 +7,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles\general.css">
+    <link rel="stylesheet" href="styles\home.css">
     <title>store</title>
 </head>
 <body>
@@ -14,17 +16,19 @@
         if(isset($_SESSION["id"])){
             echo "
                 <div class=\"navbar\">
+                    <div class=\"logo\">logo</div>
                     <a href=\"user/cart.php\">cart</a>
                     <a href=\"user/logout.php\">logout</a>
                 </div>
-                <h1>welcome $_SESSION[name]</h1>
+                <h1>welcome $_SESSION[name], discover our products</h1>
                 ";
         } else {
             echo "
                 <div class=\"navbar\">
-                    <a href=\"login.php\">login</a>
+                    <div class=\"logo\">logo</div>
+                    <a href=\"login.php\" class=\"login mb-btn\">login</a>
                 </div>
-                <h1>welcome</h1>
+                <h1>Discover our products</h1>
                 ";
         }
     ?>
@@ -56,21 +60,27 @@
                     if(isset($_SESSION["id"])){
                         echo "
                         <div class=\"product\">
+                            <div class=\"image-container\">
+                                <img src=\"uploads/$row[product_img]\">
+                            </div>
                             <h2>$row[product_name]</h2>
-                            <img src=\"uploads/$row[product_img]\">
                             <p>$row[product_desc]</p>
-                            <p>$row[price]</p>
-                            <a href=\"user/cart-handler.php?product_id=$row[id]\">add to cart</a>
+                            <p>$row[price] $</p>
+                            <a href=\"user/cart-handler.php?product_id=$row[id]\" class=\"add-to-cart mb-btn\">
+                                add to cart
+                            </a>
                         </div>
                         ";
                     } else {
                         echo "
                         <div class=\"product\">
+                            <div class=\"image-container\">
+                                <img src=\"uploads/$row[product_img]\">
+                            </div>
                             <h2>$row[product_name]</h2>
-                            <img src=\"uploads/$row[product_img]\">
                             <p>$row[product_desc]</p>
-                            <p>$row[price]</p>
-                            <a href=\"login.php\">add to cart</a>
+                            <p>$row[price] $</p>
+                            <a href=\"login.php\" class=\"add-to-cart mb-btn\">add to cart</a>
                         </div>
                         ";
                     }
