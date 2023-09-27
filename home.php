@@ -17,8 +17,10 @@
             echo "
                 <div class=\"navbar\">
                     <div class=\"logo\">logo</div>
-                    <a href=\"user/cart.php\">cart</a>
-                    <a href=\"user/logout.php\">logout</a>
+                    <div class=\"btns\">
+                        <a href=\"user/cart.php\" class=\"cart mb-btn\">cart</a>
+                        <a href=\"user/logout.php\" class=\"logout mb-btn\">logout</a>
+                    </div>
                 </div>
                 <h1>welcome $_SESSION[name], discover our products</h1>
                 ";
