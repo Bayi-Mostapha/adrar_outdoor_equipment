@@ -50,10 +50,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles\general.css">
+    <link rel="stylesheet" href="styles\login-signup.css">
     <title>login</title>
 </head>
 <body>
-    <h1>welcome admin</h1>
     <div class="errors">
         <p class="error">
             <?php
@@ -81,6 +82,7 @@
         </p>
     </div>
     <form action="admin-login.php" method="post" novalidate>
+        <h1>welcome admin</h1>
         <div>
             <label for="email">email:</label>
             <input type="email" name="email" id="email" value=<?php echo $email; ?>>
@@ -89,7 +91,7 @@
             <label for="password">password:</label>
             <input type="password" name="password" id="password">
         </div>
-        <button type="submit">login</button>
+        <button type="submit" class="submit">login</button>
     </form>
 </body>
 </html>

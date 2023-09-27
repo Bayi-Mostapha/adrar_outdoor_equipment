@@ -8,6 +8,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles\general.css">
+    <link rel="stylesheet" href="styles\login-signup.css">
     <title>sign up</title>
 </head>
 
@@ -44,6 +46,7 @@
         </p>
     </div>
     <form action="./sign-up-handler.php" method="post" novalidate>
+        <h1>sign up</h1>
         <div>
             <label for="name">name:</label>
             <input type="text" name="name" id="name" value=<?php echo $name; ?>>
@@ -60,7 +63,7 @@
             <label for="confirm_password">confirm password:</label>
             <input type="password" name="confirm_password" id="confirm_password">
         </div>
-        <button type="submit">sign in</button>
+        <button type="submit" class="submit">sign up</button>
     </form>
 </body>
 
