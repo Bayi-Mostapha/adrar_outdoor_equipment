@@ -11,17 +11,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="..\styles\general.css">
+    <link rel="stylesheet" href="..\styles\cart.css">
     <title>cart</title>
 </head>
 <body>
+    <div class="navbar">
+        <div class="logo">logo</div>
+        <div class="btns">
+            <a href="../home.php" class="home mb-btn">home</a>
+            <a href="logout.php" class="logout mb-btn">logout</a>
+        </div>
+    </div>
     <?php
-        echo "
-            <div class=\"navbar\">
-                <a href=\"../home.php\">back</a>
-                <a href=\"logout.php\">logout</a>
-            </div>
-            <h1>welcome to your cart, $_SESSION[name]</h1>
-            ";
+        echo "<h1>welcome to your cart, $_SESSION[name]</h1>";
     ?>
     <div class="news">
         <p class="new">
@@ -53,7 +56,7 @@
                         <img src=\"../uploads/$row[product_img]\">
                         <p>$row[product_desc]</p>
                         <p>$row[price]</p>
-                        <a href=\"cart-delete.php?id=$row[id]\">remove from cart</a>
+                        <a href=\"cart-delete.php?id=$row[id]\" class=\"delete mb-btn\">remove from cart</a>
                     </div>
                     ";
                 }
