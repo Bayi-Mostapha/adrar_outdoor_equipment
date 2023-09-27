@@ -11,9 +11,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles\general.css">
+    <link rel="stylesheet" href="styles\admin.css">
     <title>Dashboard</title>
 </head>
 <body>
+    <div class="navbar">
+        <div class="logo">logo</div>
+        <a href="admin-crud/admin-logout.php" class="logout mb-btn">logout</a>
+    </div>
     <h1>welcome <?php echo $_SESSION["name"]; ?></h1>
     <div class="news">
         <p class="new">
@@ -45,8 +51,7 @@
             ?>
         </p>
     </div>
-    <a href="admin-crud/admin-logout.php">logout</a>
-    <a href="admin-crud/create.php">add product</a>
+    <a href="admin-crud/create.php" class="add-product mb-btn">add product</a>
 
     <div class="products">
         <?php
@@ -61,14 +66,18 @@
                         <p>$row[product_desc]</p>
                         <p>$row[price]</p>
                         <div class=\"btns\">
-                            <a href=\"admin-crud/update.php?id=$row[id]\">edit</a>
-                            <a href=\"admin-crud/delete.php?id=$row[id]\">delete</a>
+                            <a href=\"admin-crud/update.php?id=$row[id]\" class=\"update mb-btn\">
+                                edit
+                            </a>
+                            <a href=\"admin-crud/delete.php?id=$row[id]\" class=\"delete mb-btn\">
+                                delete
+                            </a>
                         </div>
                     </div>
                     ";
                 }
             } else {
-                echo "<p>no products</p>";
+                echo "<p>there are no products</p>";
             }
         ?>
     </div>
