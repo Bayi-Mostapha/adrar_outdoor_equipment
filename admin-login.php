@@ -55,30 +55,30 @@
     <title>login</title>
 </head>
 <body>
-    <?php
-        if($_SERVER["REQUEST_METHOD"] == "GET"){
-            if(isset($_GET["error"])){
-                $error = $_GET["error"];
-                if($error == "empty"){
-                    echo "<div class=\"errors\"><p class=\"error\">all fields must be filled</p></div>";
-                } elseif($error == "invalid_email"){
-                    echo "<div class=\"errors\"><p class=\"error\">email not valid</p></div>";
-                } elseif($error == "wrong_login"){
-                    echo "<div class=\"errors\"><p class=\"error\">wrong login information</p></div>";
-                } elseif($error == "email_notexist"){
-                    echo "<div class=\"errors\"><p class=\"error\">an account with this email does not exist</p></div>";
-                } else {
-                    header("Location: admin-login.php");
-                    exit();
-                }
-            }
-            if(isset($_GET["email"])){
-                $email = filter_input(INPUT_GET, "email", FILTER_SANITIZE_SPECIAL_CHARS);
-            }
-        }
-    ?>
     <form action="admin-login.php" method="post" novalidate>
         <h1>welcome admin</h1>
+        <?php
+            if($_SERVER["REQUEST_METHOD"] == "GET"){
+                if(isset($_GET["error"])){
+                    $error = $_GET["error"];
+                    if($error == "empty"){
+                        echo "<div class=\"errors\"><p class=\"error\">all fields must be filled</p></div>";
+                    } elseif($error == "invalid_email"){
+                        echo "<div class=\"errors\"><p class=\"error\">email not valid</p></div>";
+                    } elseif($error == "wrong_login"){
+                        echo "<div class=\"errors\"><p class=\"error\">wrong login information</p></div>";
+                    } elseif($error == "email_notexist"){
+                        echo "<div class=\"errors\"><p class=\"error\">an account with this email does not exist</p></div>";
+                    } else {
+                        header("Location: admin-login.php");
+                        exit();
+                    }
+                }
+                if(isset($_GET["email"])){
+                    $email = filter_input(INPUT_GET, "email", FILTER_SANITIZE_SPECIAL_CHARS);
+                }
+            }
+        ?>
         <div>
             <label for="email">email:</label>
             <input type="email" name="email" id="email" value=<?php echo $email; ?>>

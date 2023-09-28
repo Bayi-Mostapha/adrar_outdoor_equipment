@@ -55,30 +55,30 @@
     <title>login</title>
 </head>
 <body>
-    <?php
-        if($_SERVER["REQUEST_METHOD"] == "GET"){
-            if(isset($_GET["error"])){
-                $error = $_GET["error"];
-                if($error == "empty"){
-                    echo "<div class=\"errors\"><p class=\"error\">all fields must be filled</p></div>";
-                } elseif($error == "invalid_email"){
-                    echo "<div class=\"errors\"><p class=\"error\">email not valid</p></div>";
-                } elseif($error == "wrong_login"){
-                    echo "<div class=\"errors\"><p class=\"error\">wrong login information</p></div>";
-                } elseif($error == "email_notexist"){
-                    echo "<div class=\"errors\"><p class=\"error\">an account with this email does not exist, <a href=\"sign-up.php\">sign up</a></p></div>";
-                } else {
-                    header("Location: login.php");
-                    exit();
-                }
-            }
-            if(isset($_GET["email"])){
-                $email = filter_input(INPUT_GET, "email", FILTER_SANITIZE_SPECIAL_CHARS);
-            }
-        }
-    ?>
     <form action="login.php" method="post" novalidate>
         <h1>login</h1>
+        <?php
+            if($_SERVER["REQUEST_METHOD"] == "GET"){
+                if(isset($_GET["error"])){
+                    $error = $_GET["error"];
+                    if($error == "empty"){
+                        echo "<div class=\"errors\"><p class=\"error\">all fields must be filled</p></div>";
+                    } elseif($error == "invalid_email"){
+                        echo "<div class=\"errors\"><p class=\"error\">email not valid</p></div>";
+                    } elseif($error == "wrong_login"){
+                        echo "<div class=\"errors\"><p class=\"error\">wrong login information</p></div>";
+                    } elseif($error == "email_notexist"){
+                        echo "<div class=\"errors\"><p class=\"error\">an account with this email does not exist, <a href=\"sign-up.php\">sign up</a></p></div>";
+                    } else {
+                        header("Location: login.php");
+                        exit();
+                    }
+                }
+                if(isset($_GET["email"])){
+                    $email = filter_input(INPUT_GET, "email", FILTER_SANITIZE_SPECIAL_CHARS);
+                }
+            }
+        ?>
         <div class="form-row">
             <label for="email">email:</label>
             <input type="email" name="email" id="email" value=<?php echo $email; ?>>

@@ -1,4 +1,4 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900&display=swap');
 
 :root {
     --txt: black;
@@ -21,7 +21,7 @@
     --xx-big: 2.5em;
 
     /* shadows */
-    --light-border: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    --light-border: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
     --bold-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
     --normal-shadow: rgba(0, 0, 0, 0.15) 0px 5px 10px 0px;
     --light-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
@@ -78,8 +78,7 @@ select {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /* font-family: 'Nunito', sans-serif; */
-    font-family: sans-serif;
+    font-family: 'Nunito', sans-serif;
 }
 
 /* ********************************************************************** */
@@ -206,13 +205,47 @@ input[type="radio"] {
 }
 
 /* ********************************************** */
-/*  */
+
 .news {
-    margin: 10px 0;
+    width: 90%;
+    margin: 10px auto;
     padding: 10px;
+    border-radius: 7px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     box-shadow: var(--light-border);
-    background-color: rgba(255, 255, 0, 0.3);
+
+    color: #333;
+    background-color: #f0f0f0;
 }
+
+.errors {
+    width: 90%;
+    margin: 10px auto;
+    padding: 10px;
+    border-radius: 7px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--light-border);
+
+    color: #e74c3c;
+    background-color: #f9dcdc;
+}
+
+.news p,
+.errors p {
+    width: fit-content;
+}
+
+form .news,
+form .errors {
+    width: 100%;
+}
+
 
 /* ********************************************** */
 
