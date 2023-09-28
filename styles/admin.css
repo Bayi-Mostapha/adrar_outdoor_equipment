@@ -1,48 +1,10 @@
-.navbar {
-    background-color: rgb(28, 0, 0);
-    padding: .5rem;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.navbar .logo {
-    color: var(--txt2);
-    font-size: var(--big);
-    font-weight: 700;
-}
-
-.navbar .logout {
-    background-color: var(--main-color);
-    color: var(--txt2);
-    padding: .5em;
-    border-radius: 4px;
-}
-
 .add-product {
+    padding: .25em 1em;
+    border-radius: 5px;
+
     background-color: var(--main-color);
     color: var(--txt2);
-    padding: .25em .75em;
-    border-radius: 5px;
-}
-
-.products {
-    padding: 20px;
-    display: grid;
-    grid-template-columns: 32% 32% 32%;
-    gap: 2%;
-}
-
-.product {
-    padding: 10px;
-    border-radius: 9px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-    box-shadow: var(--light-border);
+    font-weight: 700;
 }
 
 .btns {

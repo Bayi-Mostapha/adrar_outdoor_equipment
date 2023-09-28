@@ -61,6 +61,7 @@
         </div>
         <button type="submit" class="submit">sign up</button>
     </form>
+    <?php include "componants/icons.php"; ?>
 </body>
 
 </html>

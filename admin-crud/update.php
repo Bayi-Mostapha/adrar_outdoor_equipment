@@ -216,5 +216,6 @@
             <button type="submit" class="mb-btn save">save</button>
         </div>
     </form>
+    <?php include "../componants/icons.php"; ?>
 </body>
 </html>

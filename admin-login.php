@@ -89,5 +89,6 @@
         </div>
         <button type="submit" class="submit">login</button>
     </form>
+    <?php include "componants/icons.php"; ?>
 </body>
 </html>
