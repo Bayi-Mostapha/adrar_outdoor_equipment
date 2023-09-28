@@ -21,36 +21,32 @@
         <a href="admin-crud/admin-logout.php" class="logout mb-btn">logout</a>
     </div>
     <h1>welcome <?php echo $_SESSION["name"]; ?></h1>
-    <div class="news">
-        <p class="new">
-            <?php
-                if($_SERVER["REQUEST_METHOD"] == "GET"){
-                    if(isset($_GET["error"])) {
-                        $error = $_GET["error"];
-                        if($error == "undeleted_img") {
-                            echo "there was an error while trying to delete your product";
-                        } else {
-                            header("Location: admin.php");
-                            exit();
-                        }
-                    } elseif(isset($_GET["succes"])) {
-                        $succes = $_GET["succes"];
-                        if($succes == "create") {
-                            echo "product created succesfully";
-                        } elseif($succes == "delete") {
-                            echo "product deleted succesfully";
-                        }
-                        elseif($succes == "update") {
-                            echo "product updated succesfully";
-                        } else {
-                            header("Location: admin.php");
-                            exit();
-                        }
-                    }
+    <?php
+        if($_SERVER["REQUEST_METHOD"] == "GET"){
+            if(isset($_GET["error"])) {
+                $error = $_GET["error"];
+                if($error == "undeleted_img") {
+                    echo "<div class=\"news\"><p class=\"new\">there was an error while trying to delete your product</p></div>";
+                } else {
+                    header("Location: admin.php");
+                    exit();
                 }
-            ?>
-        </p>
-    </div>
+            } elseif(isset($_GET["succes"])) {
+                $succes = $_GET["succes"];
+                if($succes == "create") {
+                    echo "<div class=\"news\"><p class=\"new\">product created succesfully</p></div>";
+                } elseif($succes == "delete") {
+                    echo "<div class=\"news\"><p class=\"new\">product deleted succesfully</p></div>";
+                }
+                elseif($succes == "update") {
+                    echo "<div class=\"news\"><p class=\"new\">product updated succesfully</p></div>";
+                } else {
+                    header("Location: admin.php");
+                    exit();
+                }
+            }
+        }
+    ?>
     <a href="admin-crud/create.php" class="add-product mb-btn">add product</a>
 
     <div class="products">

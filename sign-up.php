@@ -14,37 +14,33 @@
 </head>
 
 <body>
-    <div class="errors">
-        <p class="error">
-            <?php
-                if($_SERVER["REQUEST_METHOD"] == "GET"){
-                    if(isset($_GET["error"])){
-                        $error = $_GET["error"];
-                        if($error == "empty"){
-                            echo "all fields must be filled";
-                        } elseif($error == "wrong_email"){
-                            echo "email not valid";
-                        } elseif($error == "password_short"){
-                            echo "password must contain at least 8 characters";
-                        } elseif($error == "passwords_not_match"){
-                            echo "passwords do not match";
-                        } elseif($error == "email_taken"){
-                            echo "email already taken";
-                        } else {
-                            header("Location: sign-up.php");
-                            exit();
-                        }
-                    }
-                    if(isset($_GET["name"])){
-                        $name = filter_input(INPUT_GET, "name", FILTER_SANITIZE_SPECIAL_CHARS);
-                    }
-                    if(isset($_GET["email"])){
-                        $email = filter_input(INPUT_GET, "email", FILTER_SANITIZE_SPECIAL_CHARS);
-                    }
+    <?php
+        if($_SERVER["REQUEST_METHOD"] == "GET"){
+            if(isset($_GET["error"])){
+                $error = $_GET["error"];
+                if($error == "empty"){
+                    echo "<div class=\"errors\"><p class=\"error\">all fields must be filled</p></div>";
+                } elseif($error == "wrong_email"){
+                    echo "<div class=\"errors\"><p class=\"error\">email not valid</p></div>";
+                } elseif($error == "password_short"){
+                    echo "<div class=\"errors\"><p class=\"error\">password must contain at least 8 characters</p></div>";
+                } elseif($error == "passwords_not_match"){
+                    echo "<div class=\"errors\"><p class=\"error\">passwords do not match</p></div>";
+                } elseif($error == "email_taken"){
+                    echo "<div class=\"errors\"><p class=\"error\">email already taken</p></div>";
+                } else {
+                    header("Location: sign-up.php");
+                    exit();
                 }
-            ?>
-        </p>
-    </div>
+            }
+            if(isset($_GET["name"])){
+                $name = filter_input(INPUT_GET, "name", FILTER_SANITIZE_SPECIAL_CHARS);
+            }
+            if(isset($_GET["email"])){
+                $email = filter_input(INPUT_GET, "email", FILTER_SANITIZE_SPECIAL_CHARS);
+            }
+        }
+    ?>
     <form action="./sign-up-handler.php" method="post" novalidate>
         <h1>sign up</h1>
         <div>

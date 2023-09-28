@@ -36,19 +36,17 @@
     ?>
     <?php
         if($_SERVER["REQUEST_METHOD"] == "GET" && isset($_SESSION["id"])){
-            echo "<div class=\"news\"><p class=\"new\">";
             if(isset($_GET["error"])) {
                 $error = $_GET["error"];
                 if($error == "product_in_cart") {
-                    echo "product already in cart";
+                    echo "<div class=\"news\"><p class=\"new\">product already in cart</p></div>";
                 }
             } elseif(isset($_GET["succes"])) {
                 $succes = $_GET["succes"];
                 if($succes == "add_to_cart") {
-                    echo "product added to cart succesfully";
+                    echo "<div class=\"news\"><p class=\"new\">product added to cart succesfully</p></div>";
                 }
             }
-            echo "</p></div>";
         }
     ?>
     <div class="products">

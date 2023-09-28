@@ -173,31 +173,27 @@
     <title>edit product</title>
 </head>
 <body>
-    <div class="errors">
-        <p class="error">
-            <?php
-                if($_SERVER["REQUEST_METHOD"] == "GET"){
-                    if(isset($_GET["error"])){
-                        $error = $_GET["error"];
-                        if($error == "empty") {
-                            echo "all fields must be filled";
-                        } elseif($error == "moving_file") {
-                            echo "error while uploading file";
-                        } elseif($error == "wrong_file_type") {
-                            echo "only images are allowed (png, jpeg...)";
-                        } elseif($error == "invalid_price") {
-                            echo "price must be a number";
-                        } elseif($error == "file_error") {
-                            echo "there was an error while uploading your file";
-                        } else {
-                            header("Location: update.php");
-                            exit();
-                        }
-                    }
+    <?php
+        if($_SERVER["REQUEST_METHOD"] == "GET"){
+            if(isset($_GET["error"])){
+                $error = $_GET["error"];
+                if($error == "empty") {
+                    echo "<div class=\"errors\"><p class=\"error\">all fields must be filled</p></div>";
+                } elseif($error == "moving_file") {
+                    echo "<div class=\"errors\"><p class=\"error\">error while uploading file</p></div>";
+                } elseif($error == "wrong_file_type") {
+                    echo "<div class=\"errors\"><p class=\"error\">only images are allowed (png, jpeg...)</p></div>";
+                } elseif($error == "invalid_price") {
+                    echo "<div class=\"errors\"><p class=\"error\">price must be a number</p></div>";
+                } elseif($error == "file_error") {
+                    echo "<div class=\"errors\"><p class=\"error\">there was an error while uploading your file</p></div>";
+                } else {
+                    header("Location: update.php");
+                    exit();
                 }
-            ?>
-        </p>
-    </div>
+            }
+        }
+    ?>
     <form action="update.php" method="post" enctype="multipart/form-data">
         <input type="hidden" name="id" value="<?php echo $id; ?>">
         <div class="form-row">
