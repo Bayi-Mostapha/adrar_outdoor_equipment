@@ -33,6 +33,14 @@
         }
         $stmt->bind_param("i", $id);
         $stmt->execute();
+
+        $sql = "DELETE FROM cart WHERE product_id=?;";
+        if(!$stmt->prepare($sql)){
+            die("SQL error: " . $mysqli->error);
+        }
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+
         header("Location: ../admin.php?succes=delete");
         exit();
     } else {

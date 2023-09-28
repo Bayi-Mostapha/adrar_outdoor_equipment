@@ -205,9 +205,16 @@ input[type="radio"] {
     animation: spin 1s linear infinite;
 }
 
-.hide-overflow {
-    overflow: hidden !important;
+/* ********************************************** */
+
+.news {
+    margin: 10px 0;
+    padding: 10px;
+    box-shadow: var(--light-border);
+    background-color: rgba(255, 255, 0, 0.3);
 }
+
+/* ********************************************** */
 
 @keyframes spin {
     0% {

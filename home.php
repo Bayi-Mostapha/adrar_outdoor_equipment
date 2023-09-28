@@ -7,8 +7,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles\general.css">
-    <link rel="stylesheet" href="styles\home.css">
+    <link rel="stylesheet" href="styles/general.css">
+    <link rel="stylesheet" href="styles/home.css">
     <title>store</title>
 </head>
 <body>
@@ -34,25 +34,23 @@
                 ";
         }
     ?>
-    <div class="news">
-        <p class="new">
-            <?php
-                if($_SERVER["REQUEST_METHOD"] == "GET"){
-                    if(isset($_GET["error"])) {
-                        $error = $_GET["error"];
-                        if($error == "product_in_cart") {
-                            echo "product already in cart";
-                        }
-                    } elseif(isset($_GET["succes"])) {
-                        $succes = $_GET["succes"];
-                        if($succes == "add_to_cart") {
-                            echo "product added to cart succesfully";
-                        }
-                    }
+    <?php
+        if($_SERVER["REQUEST_METHOD"] == "GET" && isset($_SESSION["id"])){
+            echo "<div class=\"news\"><p class=\"new\">";
+            if(isset($_GET["error"])) {
+                $error = $_GET["error"];
+                if($error == "product_in_cart") {
+                    echo "product already in cart";
                 }
-            ?>
-        </p>
-    </div>
+            } elseif(isset($_GET["succes"])) {
+                $succes = $_GET["succes"];
+                if($succes == "add_to_cart") {
+                    echo "product added to cart succesfully";
+                }
+            }
+            echo "</p></div>";
+        }
+    ?>
     <div class="products">
         <?php
             $sql = "SELECT * FROM products";
