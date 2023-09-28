@@ -22,7 +22,7 @@
                         <a href=\"user/logout.php\" class=\"icon-btn\"><i class=\"fa-solid fa-arrow-right-from-bracket\"></i></a>
                     </div>
                 </div>
-                <h1>welcome $_SESSION[name], discover our products</h1>
+                <div class=\"home-bg home-bg2\"></div>
                 ";
         } else {
             echo "
@@ -30,7 +30,7 @@
                     <div class=\"logo\">logo</div>
                     <a href=\"login.php\" class=\"icon-btn\"><i class=\"fa-solid fa-right-to-bracket\"></i></a>
                 </div>
-                <h1>Discover our products</h1>
+                <div class=\"home-bg home-bg1\"></div>
                 ";
         }
     ?>

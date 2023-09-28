@@ -212,8 +212,8 @@
             <input type="file" name="image">
         </div>
         <div class="btns">
-            <a href="../admin.php" class="mb-btn cancel">cancel</a>
-            <button type="submit" class="mb-btn save">save</button>
+            <a href="../admin.php" class="mb-btn cancel"><i class="fa-solid fa-ban"></i> cancel</a>
+            <button type="submit" class="mb-btn save"><i class="fa-solid fa-cloud"></i> save</button>
         </div>
     </form>
     <?php include "../componants/icons.php"; ?>

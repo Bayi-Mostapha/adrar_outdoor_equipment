@@ -7,7 +7,7 @@ form {
 }
 
 .file-container {
-    border: 2px dashed var(--light-gray);
+    border: 2px dashed var(--gray-txt);
     padding: 10px;
 }
 
@@ -21,15 +21,17 @@ form {
 }
 
 .cancel {
-    background-color: red;
-    color: var(--txt2);
-    padding: .25em .75em;
+    background-color: #FCE4EC;
+    color: #D32F2F;
+    padding: .2em .75em;
     border-radius: 4px;
+    font-weight: 700;
 }
 
 .save {
-    background-color: var(--main-color);
-    color: var(--txt2);
-    padding: .25em .75em;
+    background-color: #E8F5E9;
+    color: #4CAF50;
+    padding: .2em .75em;
     border-radius: 4px;
+    font-weight: 700;
 }

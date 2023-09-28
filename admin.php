@@ -48,7 +48,7 @@
                 }
             }
         ?>
-        <a href="admin-crud/create.php" class="add-product mb-btn">add product</a>
+        <a href="admin-crud/create.php" class="add-product mb-btn">add product <i class="fa-solid fa-plus"></i></a>
 
         <div class="products">
             <?php
@@ -58,15 +58,19 @@
                     while($row = mysqli_fetch_assoc($result)){
                         echo "
                         <div class=\"product\">
+                            <div class=\"image-container\">
+                                <img src=\"uploads/$row[product_img]\">
+                            </div>
                             <h2>$row[product_name]</h2>
-                            <img src=\"uploads/$row[product_img]\">
                             <p>$row[product_desc]</p>
-                            <p>$row[price]</p>
+                            <p class=\"price\">$row[price] $</p>
                             <div class=\"btns\">
                                 <a href=\"admin-crud/update.php?id=$row[id]\" class=\"update mb-btn\">
+                                    <i class=\"fa-solid fa-pen\"></i>
                                     edit
                                 </a>
                                 <a href=\"admin-crud/delete.php?id=$row[id]\" class=\"delete mb-btn\">
+                                    <i class=\"fa-solid fa-trash\"></i>
                                     delete
                                 </a>
                             </div>

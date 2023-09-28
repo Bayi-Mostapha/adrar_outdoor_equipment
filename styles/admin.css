@@ -1,4 +1,6 @@
 .add-product {
+    display: inline-block;
+    margin: 10px 0;
     padding: .25em 1em;
     border-radius: 5px;
 
@@ -14,15 +16,17 @@
 }
 
 .update {
-    background-color: green;
-    color: var(--txt2);
-    padding: .25em .75em;
-    border-radius: 2rem;
+    background-color: #F1F8E9;
+    color: #4CAF50;
+    padding: .2em .75em;
+    border-radius: 4px;
+    font-weight: 700;
 }
 
 .delete {
-    background-color: red;
-    color: var(--txt2);
-    padding: .25em .75em;
-    border-radius: 2rem;
+    background-color: #FCE4EC;
+    color: #D32F2F;
+    padding: .2em .75em;
+    border-radius: 4px;
+    font-weight: 700;
 }
