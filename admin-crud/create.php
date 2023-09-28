@@ -101,6 +101,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="..\styles\general.css">
+    <link rel="stylesheet" href="..\styles\crud-form.css">
     <title>create product</title>
 </head>
 <body>
@@ -130,21 +132,25 @@
         </p>
     </div>
     <form action="create.php" method="post" enctype="multipart/form-data">
-        <div>
+        <div class="form-row">
             <label for="name">product name</label>
             <input type="text" name="name" id="name">
         </div>
-        <div>
+        <div class="form-row">
             <label for="desc">product description</label>
             <textarea name="desc" id="desc" cols="30" rows="10"></textarea>
         </div>
-        <div>
+        <div class="form-row">
             <label for="price">product price</label>
             <input type="text" name="price" id="price">
         </div>
-        <input type="file" name="image">
-        <a href="../admin.php">cancel</a>
-        <button type="submit">save</button>
+        <div class="form-row file-container">
+            <input type="file" name="image">
+        </div>
+        <div class="btns">
+            <a href="../admin.php" class="mb-btn cancel">cancel</a>
+            <button type="submit" class="mb-btn save">save</button>
+        </div>
     </form>
 </body>
 </html>
