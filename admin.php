@@ -18,7 +18,9 @@
 </head>
 <body>
     <div class="navbar">
-        <div class="logo">logo</div>
+        <div class="logo">
+            <img src="images/logo.png">
+        </div>
         <a href="admin-crud/admin-logout.php" class="icon-btn"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
     </div>
     <main>
@@ -139,6 +141,13 @@
             ?>
         </div>
     </main>
+    <footer class="footer">
+        <div class="f-logo">
+            <img src="images/logo.png">
+        </div>
+        <h2>Adrar</h2>
+        <p><i class="fa-regular fa-copyright"></i> 2023</p>
+    </footer>
     <?php include "componants/icons.php"; ?>
 </body>
 </html>

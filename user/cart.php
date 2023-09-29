@@ -17,7 +17,9 @@
 </head>
 <body>
     <div class="navbar">
-        <div class="logo">logo</div>
+        <div class="logo">
+            <img src="../images/logo.png">
+        </div>
         <div class="btns">
             <a href="../home.php" class="icon-btn"><i class="fa-solid fa-house"></i></a>
             <a href="logout.php" class="icon-btn"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
@@ -49,11 +51,16 @@
                         $row = mysqli_fetch_assoc($result);
                         echo "
                         <div class=\"product\">
+                            <div class=\"image-container\">
+                                <img src=\"../uploads/$row[product_img]\">
+                            </div>
                             <h2>$row[product_name]</h2>
-                            <img src=\"../uploads/$row[product_img]\">
                             <p>$row[product_desc]</p>
                             <p>$row[price]</p>
-                            <a href=\"cart-delete.php?id=$row[id]\" class=\"delete mb-btn\">remove from cart</a>
+                            <a href=\"cart-delete.php?id=$row[id]\" class=\"delete mb-btn\">
+                                <i class=\"fa-solid fa-trash\"></i>
+                                remove from cart
+                            </a>
                         </div>
                         ";
                     }
@@ -63,6 +70,13 @@
             ?>
         </div>
     </main>
+    <footer class="footer">
+        <div class="f-logo">
+            <img src="../images/logo.png">
+        </div>
+        <h2>Adrar</h2>
+        <p><i class="fa-regular fa-copyright"></i> 2023</p>
+    </footer>
     <?php include "../componants/icons.php"; ?>
 </body>
 </html>

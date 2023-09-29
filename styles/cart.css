@@ -1,3 +1,7 @@
+body {
+    padding-top: 100px;
+}
+
 .btns {
     display: flex;
     align-items: center;
@@ -5,10 +9,10 @@
 }
 
 .delete {
-    padding: .5em 1.5em;
     width: fit-content;
-
-    background-color: red;
-    color: var(--txt2);
-    border-radius: 2rem;
+    background-color: #FCE4EC;
+    color: #D32F2F;
+    padding: .2em .75em;
+    border-radius: 4px;
+    font-weight: 700;
 }

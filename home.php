@@ -16,7 +16,9 @@
         if(isset($_SESSION["id"])){
             echo "
                 <div class=\"navbar\">
-                    <div class=\"logo\">logo</div>
+                    <div class=\"logo\">
+                        <img src=\"images/logo.png\">
+                    </div>
                     <div class=\"btns\">
                         <a href=\"user/cart.php\" class=\"icon-btn\"><i class=\"fa-solid fa-cart-shopping\"></i></a>
                         <a href=\"user/logout.php\" class=\"icon-btn\"><i class=\"fa-solid fa-arrow-right-from-bracket\"></i></a>
@@ -31,11 +33,13 @@
         } else {
             echo "
                 <div class=\"navbar\">
-                    <div class=\"logo\">logo</div>
+                    <div class=\"logo\">
+                        <img src=\"images/logo.png\">
+                    </div>
                     <a href=\"login.php\" class=\"icon-btn\"><i class=\"fa-solid fa-right-to-bracket\"></i></a>
                 </div>
                 <div class=\"home-bg home-bg1\">
-                    <h1 class=\"bg-content\">welcome to our shop</h1>
+                    <h1 class=\"bg-content\">welcome to <span class=\"color\">Adrar</span></h1>
                     <p class=\"bg-content\">explore our products</p>
                     <div class=\"btns bg-content\">
                         <a href=\"login.php\" class=\"mb-btn login-action\">login <i class=\"fa-solid fa-user\"></i></a>
@@ -105,6 +109,13 @@
             ?>
         </div>
     </main>
+    <footer class="footer">
+        <div class="f-logo">
+            <img src="images/logo.png">
+        </div>
+        <h2>Adrar</h2>
+        <p><i class="fa-regular fa-copyright"></i> 2023</p>
+    </footer>
     <?php include "componants/icons.php"; ?>
 </body>
 </html>

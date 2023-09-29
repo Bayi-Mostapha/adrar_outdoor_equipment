@@ -82,6 +82,7 @@ select {
 
 body {
     background-color: var(--main-bg);
+    min-height: 100dvh;
 }
 
 /* ********************************************************************** */
@@ -210,21 +211,32 @@ input[type="radio"] {
 /* ********************************************** */
 main {
     padding: 20px;
+    min-height: 80dvh;
 }
 
 .navbar {
-    background-color: var(--secondary-bg);
+    width: 100%;
     padding: .5rem;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 99;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    background-color: var(--secondary-bg);
 }
 
 .navbar .logo {
-    color: var(--txt2);
-    font-size: var(--big);
-    font-weight: 700;
+    width: 5rem;
+}
+
+.navbar .logo img {
+    width: 100%;
+    object-fit: contain;
 }
 
 .icon-btn {
@@ -312,6 +324,26 @@ form .errors {
     width: 100%;
 }
 
+.footer {
+    padding: 20px;
+    color: var(--main-color);
+    background-color: var(--secondary-bg);
+    text-align: center;
+}
+
+.f-logo {
+    margin: 0 auto;
+    width: 15rem;
+}
+
+.f-logo img {
+    width: 100%;
+    object-fit: contain;
+}
+
+.footer h2 {
+    font-size: var(--xx-big);
+}
 
 /* ********************************************** */
 

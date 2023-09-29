@@ -6,7 +6,7 @@
 
 .home-bg {
     width: 100%;
-    height: 500px;
+    height: 100dvh;
 
     position: relative;
     z-index: 1;
@@ -103,16 +103,26 @@ p.bg-content {
 
 .scroll-down {
     margin-top: 2rem;
-    padding: .2rem .75rem;
-    font-size: var(--big);
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     color: var(--txt2);
     border: 3px solid var(--txt2);
-    border-radius: 50%;
+    font-size: var(--big);
     transition: all 300ms;
 }
 
 .scroll-down:hover {
     color: var(--main-color);
     border-color: var(--main-color);
+}
+
+.products {
+    margin-top: 200px;
+    margin-bottom: 200px;
 }
