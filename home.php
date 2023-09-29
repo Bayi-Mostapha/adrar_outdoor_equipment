@@ -22,7 +22,11 @@
                         <a href=\"user/logout.php\" class=\"icon-btn\"><i class=\"fa-solid fa-arrow-right-from-bracket\"></i></a>
                     </div>
                 </div>
-                <div class=\"home-bg home-bg2\"></div>
+                <div class=\"home-bg home-bg2\">
+                    <h1 class=\"bg-content\">welcome <span class=\"color\">$_SESSION[name]</span></h1>
+                    <p class=\"bg-content\">explore our products</p>
+                    <button class=\"scroll-down mb-btn bg-content\"><i class=\"fa-solid fa-arrow-down\"></i></button>
+                </div>
                 ";
         } else {
             echo "
@@ -30,7 +34,14 @@
                     <div class=\"logo\">logo</div>
                     <a href=\"login.php\" class=\"icon-btn\"><i class=\"fa-solid fa-right-to-bracket\"></i></a>
                 </div>
-                <div class=\"home-bg home-bg1\"></div>
+                <div class=\"home-bg home-bg1\">
+                    <h1 class=\"bg-content\">welcome to our shop</h1>
+                    <p class=\"bg-content\">explore our products</p>
+                    <div class=\"btns bg-content\">
+                        <a href=\"login.php\" class=\"mb-btn login-action\">login <i class=\"fa-solid fa-user\"></i></a>
+                        <a href=\"sign-up.php\" class=\"mb-btn sign-up-action\">sign up <i class=\"fa-solid fa-user-plus\"></i></a>
+                    </div>
+                </div>
                 ";
         }
     ?>
