@@ -55,12 +55,20 @@
                 if(isset($_GET["error"])) {
                     $error = $_GET["error"];
                     if($error == "product_in_cart") {
-                        echo "<div class=\"news\"><p class=\"new\">product already in cart</p></div>";
+                        echo "
+                        <div class=\"news\">
+                            <p class=\"new\">product already in cart</p>
+                            <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                        </div>";
                     }
                 } elseif(isset($_GET["succes"])) {
                     $succes = $_GET["succes"];
                     if($succes == "add_to_cart") {
-                        echo "<div class=\"news\"><p class=\"new\"><i class=\"fa-solid fa-plus\"></i> product added to cart succesfully</p></div>";
+                        echo "
+                        <div class=\"news\">
+                            <p class=\"new\">product added to cart succesfully</p>
+                            <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                        </div>";
                     }
                 }
             }
@@ -117,5 +125,6 @@
         <p><i class="fa-regular fa-copyright"></i> 2023</p>
     </footer>
     <?php include "componants/icons.php"; ?>
+    <script src="js/general.js"></script>
 </body>
 </html>

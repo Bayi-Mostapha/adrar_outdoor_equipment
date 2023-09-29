@@ -62,13 +62,25 @@
                 if(isset($_GET["error"])){
                     $error = $_GET["error"];
                     if($error == "empty"){
-                        echo "<div class=\"errors\"><p class=\"error\">all fields must be filled</p></div>";
+                        echo "
+                        <div class=\"errors\">
+                            <p class=\"error\">all fields must be filled</p>
+                        </div>";
                     } elseif($error == "invalid_email"){
-                        echo "<div class=\"errors\"><p class=\"error\">email not valid</p></div>";
+                        echo "
+                        <div class=\"errors\">
+                            <p class=\"error\">email not valid</p>
+                        </div>";
                     } elseif($error == "wrong_login"){
-                        echo "<div class=\"errors\"><p class=\"error\">wrong login information</p></div>";
+                        echo "
+                        <div class=\"errors\">
+                            <p class=\"error\">wrong login information</p>
+                        </div>";
                     } elseif($error == "email_notexist"){
-                        echo "<div class=\"errors\"><p class=\"error\">an account with this email does not exist, <a href=\"sign-up.php\">sign up</a></p></div>";
+                        echo "
+                        <div class=\"errors\">
+                            <p class=\"error\">an account with this email does not exist, <a href=\"sign-up.php\">sign up</a></p>
+                        </div>";
                     } else {
                         header("Location: login.php");
                         exit();
@@ -90,5 +102,6 @@
         <button type="submit" class="submit mb-btn">login</button>
     </form>
     <?php include "componants/icons.php"; ?>
+    <script src="js/general.js"></script>
 </body>
 </html>

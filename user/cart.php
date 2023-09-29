@@ -34,7 +34,11 @@
                 if(isset($_GET["succes"])) {
                     $succes = $_GET["succes"];
                     if($succes == "remove") {
-                        echo "<div class=\"news\"><p class=\"new\">product removed from cart succesfully</p></div>";
+                        echo "
+                        <div class=\"news\">
+                            <p class=\"new\">product removed from cart succesfully</p>
+                            <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                        </div>";
                     }
                 }
             }
@@ -78,5 +82,6 @@
         <p><i class="fa-regular fa-copyright"></i> 2023</p>
     </footer>
     <?php include "../componants/icons.php"; ?>
+    <script src="../js/general.js"></script>
 </body>
 </html>

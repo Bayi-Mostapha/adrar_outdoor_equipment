@@ -21,15 +21,30 @@
                 if(isset($_GET["error"])){
                     $error = $_GET["error"];
                     if($error == "empty"){
-                        echo "<div class=\"errors\"><p class=\"error\">all fields must be filled</p></div>";
+                        echo "
+                        <div class=\"errors\">
+                            <p class=\"error\">all fields must be filled</p>
+                        </div>";
                     } elseif($error == "wrong_email"){
-                        echo "<div class=\"errors\"><p class=\"error\">email not valid</p></div>";
+                        echo "
+                        <div class=\"errors\">
+                            <p class=\"error\">email not valid</p>
+                        </div>";
                     } elseif($error == "password_short"){
-                        echo "<div class=\"errors\"><p class=\"error\">password must contain at least 8 characters</p></div>";
+                        echo "
+                        <div class=\"errors\">
+                            <p class=\"error\">password must contain at least 8 characters</p>
+                        </div>";
                     } elseif($error == "passwords_not_match"){
-                        echo "<div class=\"errors\"><p class=\"error\">passwords do not match</p></div>";
+                        echo "
+                        <div class=\"errors\">
+                            <p class=\"error\">passwords do not match</p>
+                        </div>";
                     } elseif($error == "email_taken"){
-                        echo "<div class=\"errors\"><p class=\"error\">email already taken</p></div>";
+                        echo "
+                        <div class=\"errors\">
+                            <p class=\"error\">email already taken</p>
+                        </div>";
                     } else {
                         header("Location: sign-up.php");
                         exit();
@@ -62,6 +77,7 @@
         <button type="submit" class="submit">sign up</button>
     </form>
     <?php include "componants/icons.php"; ?>
+    <script src="js/general.js"></script>
 </body>
 
 </html>

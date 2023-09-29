@@ -111,15 +111,35 @@
             if(isset($_GET["error"])){
                 $error = $_GET["error"];
                 if($error == "empty") {
-                    echo "<div class=\"errors\"><p class=\"error\">all fields must be filled</p></div>";
+                    echo "
+                    <div class=\"errors\">
+                        <p class=\"error\">all fields must be filled</p>
+                       <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                    </div>";
                 } elseif($error == "moving_file") {
-                    echo "<div class=\"errors\"><p class=\"error\">error while uploading file</p></div>";
+                    echo "
+                    <div class=\"errors\">
+                        <p class=\"error\">error while uploading file</p>
+                       <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                    </div>";
                 } elseif($error == "wrong_file_type") {
-                    echo "<div class=\"errors\"><p class=\"error\">only images are allowed (png, jpeg...)</p></div>";
+                    echo "
+                    <div class=\"errors\">
+                        <p class=\"error\">only images are allowed (png, jpeg...)</p>
+                       <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                    </div>";
                 } elseif($error == "invalid_price") {
-                    echo "<div class=\"errors\"><p class=\"error\">price must be a number</p></div>";
+                    echo "
+                    <div class=\"errors\">
+                        <p class=\"error\">price must be a number</p>
+                       <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                    </div>";
                 } elseif($error == "file_error") {
-                    echo "<div class=\"errors\"><p class=\"error\">there was an error while uploading your file</p></div>";
+                    echo "
+                    <div class=\"errors\">
+                        <p class=\"error\">there was an error while uploading your file</p>
+                       <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                    </div>";
                 } else {
                     header("Location: create.php");
                     exit();
@@ -149,5 +169,6 @@
         </div>
     </form>
     <?php include "../componants/icons.php"; ?>
+    <script src="../js/general.js"></script>
 </body>
 </html>

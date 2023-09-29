@@ -93,12 +93,24 @@
                 } elseif(isset($_GET["succes"])) {
                     $succes = $_GET["succes"];
                     if($succes == "create") {
-                        echo "<div class=\"news\"><p class=\"new\">product created succesfully</p></div>";
+                        echo "
+                        <div class=\"news\">
+                            <p class=\"new\">product created succesfully</p>
+                            <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                        </div>";
                     } elseif($succes == "delete") {
-                        echo "<div class=\"news\"><p class=\"new\">product deleted succesfully</p></div>";
+                        echo "
+                        <div class=\"news\">
+                            <p class=\"new\">product deleted succesfully</p>
+                            <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                        </div>";
                     }
                     elseif($succes == "update") {
-                        echo "<div class=\"news\"><p class=\"new\">product updated succesfully</p></div>";
+                        echo "
+                        <div class=\"news\">
+                            <p class=\"new\">product updated succesfully</p>
+                            <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                        </div>";
                     } else {
                         header("Location: admin.php");
                         exit();
@@ -149,5 +161,6 @@
         <p><i class="fa-regular fa-copyright"></i> 2023</p>
     </footer>
     <?php include "componants/icons.php"; ?>
+    <script src="js/general.js"></script>
 </body>
 </html>
