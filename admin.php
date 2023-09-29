@@ -5,6 +5,7 @@
         header("Location: admin-login.php");
         exit();
     }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,6 +24,61 @@
     <main>
         <h1>welcome <?php echo $_SESSION["name"]; ?></h1>
         <?php
+            // stats
+            echo "<div class=\"stats\">"; 
+            $sql = "SELECT COUNT(*) as n FROM products;";
+            $result = mysqli_query($mysqli, $sql);
+            if(mysqli_num_rows($result) > 0) {
+                $row = mysqli_fetch_assoc($result);
+                echo "
+                <div class=\"stat\">
+                    <p class=\"title\">total products</p>
+                    <p class=\"number\">
+                        $row[n]
+                    </p>
+                    <div class=\"icon\">
+                        <i class=\"fa-solid fa-store\"></i>
+                    </div>
+                </div>
+                ";
+            }
+
+            $sql = "SELECT COUNT(*) as n FROM users;";
+            $result = mysqli_query($mysqli, $sql);
+            if(mysqli_num_rows($result) > 0) {
+                $row = mysqli_fetch_assoc($result);
+                echo "
+                <div class=\"stat\">
+                    <p class=\"title\">total users</p>
+                    <p class=\"number\">
+                        $row[n]
+                    </p>
+                    <div class=\"icon\">
+                        <i class=\"fa-solid fa-users\"></i>
+                    </div>
+                </div>
+                ";
+            }
+
+            $sql = "SELECT COUNT(*) as n FROM admins;";
+            $result = mysqli_query($mysqli, $sql);
+            if(mysqli_num_rows($result) > 0) {
+                $row = mysqli_fetch_assoc($result);
+                echo "
+                <div class=\"stat\">
+                    <p class=\"title\">total admins</p>
+                    <p class=\"number\">
+                        $row[n]
+                    </p>
+                    <div class=\"icon\">
+                        <i class=\"fa-solid fa-user-tie\"></i>
+                    </div>
+                </div>
+                ";
+            }
+            echo "</div>"; 
+            // end
+
             if($_SERVER["REQUEST_METHOD"] == "GET"){
                 if(isset($_GET["error"])) {
                     $error = $_GET["error"];
@@ -48,7 +104,7 @@
                 }
             }
         ?>
-        <a href="admin-crud/create.php" class="add-product mb-btn">add product <i class="fa-solid fa-plus"></i></a>
+        <a href="admin-crud/create.php" class="add-product mb-btn">create a product <i class="fa-solid fa-plus"></i></a>
 
         <div class="products">
             <?php

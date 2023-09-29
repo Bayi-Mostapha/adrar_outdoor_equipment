@@ -1,3 +1,31 @@
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.stat {
+    padding: 10px;
+    border-radius: 5px;
+
+    background: var(--txt2);
+    position: relative;
+}
+
+.stat .title {
+    font-size: var(--big);
+}
+
+.stat .number {
+    color: var(--main-color);
+}
+
+.stat .icon {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+
 .add-product {
     display: inline-block;
     margin: 10px 0;
