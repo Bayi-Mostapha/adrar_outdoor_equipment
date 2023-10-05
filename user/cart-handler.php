@@ -11,7 +11,7 @@
         $user_id = $_SESSION["id"];
 
         if(empty($product_id)){
-            header("Location: ../home.php");
+            header("Location: categorie-products.php?categorie=$_GET[categorie]");
             exit();
         }
 
@@ -25,11 +25,11 @@
         try {
             $stmt->execute();
         } catch(mysqli_sql_exception) {
-            header("Location: ../home.php?error=product_in_cart");
+            header("Location: product.php?id=$product_id&error=product_in_cart");
             exit();
         }
 
-        header("Location: ../home.php?succes=add_to_cart");
+        header("Location: product.php?id=$product_id&succes=add_to_cart");
         exit();
     } else {
         header("Location: ../home.php");

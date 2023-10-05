@@ -1,4 +1,4 @@
-const errors = document.querySelector('.errorr');
+const errors = document.querySelector('.errors');
 const news = document.querySelector('.news');
 
 if (errors) {

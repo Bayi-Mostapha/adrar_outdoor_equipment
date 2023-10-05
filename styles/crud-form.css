@@ -9,6 +9,19 @@ form {
 .file-container {
     border: 2px dashed var(--gray-txt);
     padding: 10px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+#preview.visible {
+    width: 10rem;
+    height: 10rem;
+}
+
+#preview img {
+    width: 100%;
+    object-fit: contain;
 }
 
 .btns {

@@ -26,7 +26,10 @@
                 </div>
                 <div class=\"home-bg home-bg2\">
                     <h1 class=\"bg-content\">welcome <span class=\"color\">$_SESSION[name]</span></h1>
-                    <p class=\"bg-content\">explore our products</p>
+                    <p class=\"bg-content\">Adrar Outdoors is your go-to store for all your 
+                    outdoor adventure and camping needs. We offer a vast selection of top-quality
+                     gear, from rugged backpacks to cozy sleeping bags, ensuring you're well-equipped
+                      for your next expedition.</p>
                     <button class=\"scroll-down mb-btn bg-content\"><i class=\"fa-solid fa-arrow-down\"></i></button>
                 </div>
                 ";
@@ -40,7 +43,10 @@
                 </div>
                 <div class=\"home-bg home-bg1\">
                     <h1 class=\"bg-content\">welcome to <span class=\"color\">Adrar</span></h1>
-                    <p class=\"bg-content\">explore our products</p>
+                    <p class=\"bg-content\">Adrar Outdoors is your go-to store for all your 
+                    outdoor adventure and camping needs. We offer a vast selection of top-quality
+                     gear, from rugged backpacks to cozy sleeping bags, ensuring you're well-equipped
+                      for your next expedition.</p>
                     <div class=\"btns bg-content\">
                         <a href=\"login.php\" class=\"mb-btn login-action\">login <i class=\"fa-solid fa-user\"></i></a>
                         <a href=\"sign-up.php\" class=\"mb-btn sign-up-action\">sign up <i class=\"fa-solid fa-user-plus\"></i></a>
@@ -50,69 +56,27 @@
         }
     ?>
     <main>
-        <?php
-            if($_SERVER["REQUEST_METHOD"] == "GET" && isset($_SESSION["id"])){
-                if(isset($_GET["error"])) {
-                    $error = $_GET["error"];
-                    if($error == "product_in_cart") {
-                        echo "
-                        <div class=\"news\">
-                            <p class=\"new\">product already in cart</p>
-                            <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
-                        </div>";
-                    }
-                } elseif(isset($_GET["succes"])) {
-                    $succes = $_GET["succes"];
-                    if($succes == "add_to_cart") {
-                        echo "
-                        <div class=\"news\">
-                            <p class=\"new\">product added to cart succesfully</p>
-                            <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
-                        </div>";
-                    }
-                }
-            }
-        ?>
-        <div class="products">
+        <h2 class="cat-title">explore our categories</h2>
+        <div class="categories">
             <?php
-                $sql = "SELECT * FROM products";
+                $sql = "SELECT * FROM categories";
                 $result = mysqli_query($mysqli, $sql);
                 if(mysqli_num_rows($result) > 0) {
                     while($row = mysqli_fetch_assoc($result)){
-                        if(isset($_SESSION["id"])){
-                            echo "
-                            <div class=\"product\">
-                                <div class=\"image-container\">
-                                    <img src=\"uploads/$row[product_img]\">
-                                </div>
-                                <h2>$row[product_name]</h2>
-                                <p>$row[product_desc]</p>
-                                <p class=\"price\">$row[price] $</p>
-                                <a href=\"user/cart-handler.php?product_id=$row[id]\" class=\"add-to-cart mb-btn\">
-                                    <i class=\"fa-solid fa-plus\"></i>
-                                    add to cart
-                                </a>
+                        echo "
+                        <div class=\"categorie\">
+                            <div class=\"image-container\">
+                                <img src=\"uploads/$row[image]\">
                             </div>
-                            ";
-                        } else {
-                            echo "
-                            <div class=\"product\">
-                                <div class=\"image-container\">
-                                    <img src=\"uploads/$row[product_img]\">
-                                </div>
-                                <h2>$row[product_name]</h2>
-                                <p>$row[product_desc]</p>
-                                <p class=\"price\">$row[price] $</p>
-                                <a href=\"login.php\" class=\"add-to-cart mb-btn\">
-                                    <i class=\"fa-solid fa-plus\"></i>
-                                    add to cart
-                                </a>
-                            </div>
-                            ";
-                        }
+                            <h2>$row[categorie_name]</h2>
+                            <a href=\"user/categorie-products.php?categorie=$row[categorie_name]\" class=\"link\">
+                                view products
+                            </a>
+                        </div>
+                        ";
                     }
                 } else {
-                    echo "<p>no products are available</p>";
+                    echo "<p>no categories are available</p>";
                 }
             ?>
         </div>

@@ -10,6 +10,10 @@
 
     position: relative;
     z-index: 1;
+
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
 .home-bg::after {
@@ -23,6 +27,25 @@
     background-color: rgba(0, 0, 0, 0.5);
 }
 
+.categorie-bg {
+    height: 300px !important;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    color: var(--txt2);
+    background-color: black;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.categorie-bg .scroll-down {
+    margin-top: 0;
+}
+
 .home-bg1 {
     padding: 20px;
     display: flex;
@@ -32,9 +55,6 @@
     color: var(--txt2);
     background-color: black;
     background: url('../images/home-bg.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
 }
 
 .home-bg .btns {
@@ -71,6 +91,7 @@
 }
 
 .home-bg2 {
+    text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -85,12 +106,9 @@
 }
 
 .bg-content {
+    width: 50%;
     position: relative;
     z-index: 3;
-}
-
-.color {
-    color: var(--main-color);
 }
 
 h1.bg-content {
@@ -98,7 +116,7 @@ h1.bg-content {
 }
 
 p.bg-content {
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 
 .scroll-down {
@@ -122,7 +140,34 @@ p.bg-content {
     border-color: var(--main-color);
 }
 
+.cat-title {
+    margin-top: 100px;
+    margin-bottom: 10px;
+    color: var(--gray-txt);
+    text-transform: capitalize;
+}
+
 .products {
-    margin-top: 200px;
-    margin-bottom: 200px;
+    margin-bottom: 100px;
+}
+
+.categories {
+    margin-bottom: 100px;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+.categorie {
+    padding: 10px;
+    border-radius: 4px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 5px;
+
+    background-color: var(--txt2);
+    box-shadow: var(--light-border);
 }

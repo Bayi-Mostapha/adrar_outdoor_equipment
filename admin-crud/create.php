@@ -6,18 +6,36 @@
         exit();
     }
 
+    $selected_categorie = "";
+
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $product_name = $mysqli->real_escape_string($_POST["name"]);
         $product_desc = $mysqli->real_escape_string($_POST["desc"]);
         $product_price = $mysqli->real_escape_string($_POST["price"]);
+        $product_categorie = $mysqli->real_escape_string($_POST["categorie"]);
+        $colors = $_POST["color"];
         $filename = "";
 
-        if(empty($product_name )|| empty($product_desc) || empty($product_price)){
+        if(empty($product_name)|| empty($product_desc) || empty($product_price) || empty($product_categorie)){
             header("Location: create.php?error=empty");
             exit();
         }
 
-        if(!filter_input(INPUT_POST, "price", FILTER_VALIDATE_INT)){
+        $sql = "SELECT * FROM categories WHERE categorie_name = ?";
+        $stmt = $mysqli->stmt_init();
+        if(!$stmt->prepare($sql)){
+            die("SQL error: " . $mysqli->error);
+        }
+        $stmt->bind_param("s", $product_categorie);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows <= 0) {
+            header("Location: ../create.php?error=categorie_not_exists");
+            exit();
+        }
+        $stmt->close();
+
+        if(!filter_input(INPUT_POST, "price", FILTER_VALIDATE_FLOAT)){
             header("Location: create.php?error=invalid_price");
             exit();
         }
@@ -85,15 +103,43 @@
             exit();
         }
         
-        $sql = "INSERT INTO products (product_name, product_desc, product_img, price) VALUES (?, ?, ?, ?);";
+        $sql = "INSERT INTO products (product_name, product_desc, product_img, price, categorie) VALUES (?, ?, ?, ?, ?);";
         $stmt = $mysqli->stmt_init();
         if(!$stmt->prepare($sql)){
             die("SQL error: " . $mysqli->error);
         }
-        $stmt->bind_param("sssd", $product_name, $product_desc, $filename, $product_price);
+        $stmt->bind_param("sssds", $product_name, $product_desc, $filename, $product_price, $product_categorie);
         $stmt->execute();
+        $id = $mysqli->insert_id;
+
+        foreach ($colors as $color) {
+            $sqlColor = "INSERT INTO colors (product_id, color) VALUES (?, ?);";
+            $stmtColor = $mysqli->stmt_init();
+            if (!$stmtColor->prepare($sqlColor)) {
+                die("SQL error: " . $mysqli->error);
+            }
+            $stmtColor->bind_param("is", $id, $mysqli->real_escape_string($color));
+            $stmtColor->execute();
+        }
+
         header("Location: ../admin.php?succes=create");
         exit();
+    }
+    $sql = "SELECT * FROM categories";
+    $result = $mysqli->query($sql);
+    $DB_categories = array();
+    if ($result) {
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $DB_categories[] = $row["categorie_name"];
+            }
+        } else {
+            header("Location: ../admin.php?error=no_categories");
+            exit();
+        }
+        $result->close();
+    } else {
+        die("SQL error: " . $mysqli->error);
     }
 ?>
 <!DOCTYPE html>
@@ -108,6 +154,9 @@
 <body>
     <?php
         if($_SERVER["REQUEST_METHOD"] == "GET"){
+            if(isset($_GET["categorie"]))
+                $selected_categorie = $_GET["categorie"];
+
             if(isset($_GET["error"])){
                 $error = $_GET["error"];
                 if($error == "empty") {
@@ -140,6 +189,12 @@
                         <p class=\"error\">there was an error while uploading your file</p>
                        <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
                     </div>";
+                } elseif($error == "categorie_not_exists") {
+                    echo "
+                    <div class=\"errors\">
+                        <p class=\"error\">this categorie does not exist in database</p>
+                       <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                    </div>";
                 } else {
                     header("Location: create.php");
                     exit();
@@ -160,8 +215,26 @@
             <label for="price">product price</label>
             <input type="text" name="price" id="price">
         </div>
+        <div class="form-row">
+            <p>product categorie</p>
+            <?php
+                foreach ($DB_categories as $DB_categorie) {
+                    echo "<div><input type=\"radio\" name=\"categorie\" value=\"$DB_categorie\" id=\"$DB_categorie\"";
+                    if(isset($selected_categorie) && $DB_categorie == $selected_categorie){
+                        echo "checked";
+                    }
+                    echo "> <label for=\"$DB_categorie\">$DB_categorie</label></div>";
+                }
+            ?>
+        </div>
+        <div class="form-row color-inputs">
+            <p>product colors (optionnal)</p>
+            <button type="button" class="add-color-input">add color</button>
+            <input type="color" name="color[]">
+        </div>
         <div class="form-row file-container">
-            <input type="file" name="image">
+            <div id="preview"></div>
+            <input type="file" name="image" id="image">
         </div>
         <div class="btns">
             <a href="../admin.php" class="mb-btn cancel"><i class="fa-solid fa-ban"></i> cancel</a>
@@ -170,5 +243,6 @@
     </form>
     <?php include "../componants/icons.php"; ?>
     <script src="../js/general.js"></script>
+    <script src="../js/admin-crud.js"></script>
 </body>
 </html>

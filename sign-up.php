@@ -14,7 +14,7 @@
 </head>
 
 <body>
-    <form action="./sign-up-handler.php" method="post" novalidate>
+    <form action="sign-up-handler.php" method="post" novalidate>
         <h1>sign up</h1>
         <?php
             if($_SERVER["REQUEST_METHOD"] == "GET"){

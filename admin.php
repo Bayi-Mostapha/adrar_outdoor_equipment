@@ -5,7 +5,6 @@
         header("Location: admin-login.php");
         exit();
     }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,60 +23,78 @@
         <a href="admin-crud/admin-logout.php" class="icon-btn"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
     </div>
     <main>
-        <h1>welcome <?php echo $_SESSION["name"]; ?></h1>
+        <div class="greeting">
+            <h1>Welcome back, <?php echo $_SESSION["name"]; ?> &#128075;</h1>
+            <div class="date-time">
+                <p class="date"></p>
+                <p>|</p>
+                <p class="time"></p>
+            </div>
+        </div>
         <?php
             // stats
             echo "<div class=\"stats\">"; 
+
+            $sql = "SELECT COUNT(*) as n FROM categories;";
+            $result = mysqli_query($mysqli, $sql);
+            $row = mysqli_fetch_assoc($result);
+            echo "
+            <div class=\"stat card\">
+                <p class=\"title\">total categories</p>
+                <p class=\"number\">
+                    $row[n]
+                </p>
+                <div class=\"icon\">
+                    <i class=\"fa-solid fa-boxes-stacked\"></i>
+                </div>
+            </div>
+            ";
+
             $sql = "SELECT COUNT(*) as n FROM products;";
             $result = mysqli_query($mysqli, $sql);
-            if(mysqli_num_rows($result) > 0) {
-                $row = mysqli_fetch_assoc($result);
-                echo "
-                <div class=\"stat\">
-                    <p class=\"title\">total products</p>
-                    <p class=\"number\">
-                        $row[n]
-                    </p>
-                    <div class=\"icon\">
-                        <i class=\"fa-solid fa-store\"></i>
-                    </div>
+            $row = mysqli_fetch_assoc($result);
+            echo "
+            <div class=\"stat card\">
+                <p class=\"title\">total products</p>
+                <p class=\"number\">
+                    $row[n]
+                </p>
+                <div class=\"icon\">
+                    <i class=\"fa-solid fa-dolly\"></i>
                 </div>
-                ";
-            }
+            </div>
+            ";
 
             $sql = "SELECT COUNT(*) as n FROM users;";
             $result = mysqli_query($mysqli, $sql);
-            if(mysqli_num_rows($result) > 0) {
-                $row = mysqli_fetch_assoc($result);
-                echo "
-                <div class=\"stat\">
-                    <p class=\"title\">total users</p>
-                    <p class=\"number\">
-                        $row[n]
-                    </p>
-                    <div class=\"icon\">
-                        <i class=\"fa-solid fa-users\"></i>
-                    </div>
+            $row = mysqli_fetch_assoc($result);
+            echo "
+            <div class=\"stat card\">
+                <p class=\"title\">total users</p>
+                <p class=\"number\">
+                    $row[n]
+                </p>
+                <div class=\"icon\">
+                    <i class=\"fa-solid fa-users\"></i>
                 </div>
-                ";
-            }
+            </div>
+            ";
 
             $sql = "SELECT COUNT(*) as n FROM admins;";
             $result = mysqli_query($mysqli, $sql);
-            if(mysqli_num_rows($result) > 0) {
-                $row = mysqli_fetch_assoc($result);
-                echo "
-                <div class=\"stat\">
-                    <p class=\"title\">total admins</p>
-                    <p class=\"number\">
-                        $row[n]
-                    </p>
-                    <div class=\"icon\">
-                        <i class=\"fa-solid fa-user-tie\"></i>
-                    </div>
+            $row = mysqli_fetch_assoc($result);
+            echo "
+            <div class=\"stat card\">
+                <p class=\"title\">total admins</p>
+                <p class=\"number\">
+                    $row[n]
+                </p>
+                <div class=\"icon\">
+                    <i class=\"fa-solid fa-user-tie\"></i>
                 </div>
-                ";
-            }
+            </div>
+            ";
+
             echo "</div>"; 
             // end
 
@@ -85,7 +102,24 @@
                 if(isset($_GET["error"])) {
                     $error = $_GET["error"];
                     if($error == "undeleted_img") {
-                        echo "<div class=\"news\"><p class=\"new\">there was an error while trying to delete your product</p></div>";
+                        echo "
+                        <div class=\"errors\">
+                            <p class=\"error\">there was an error while trying to delete your product</p>
+                            <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                        </div>";
+                    } elseif($error == "no_categories") {
+                        echo "
+                        <div class=\"errors\">
+                            <p class=\"error\">there is no categories in database</p>
+                            <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                        </div>";
+                    } elseif($error == "products_in_categorie") {
+                        echo "
+                        <div class=\"errors\">
+                            <p class=\"error\">you cannot delete a categorie if it has products in it</p>
+                            <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                        </div>
+                        ";
                     } else {
                         header("Location: admin.php");
                         exit();
@@ -104,11 +138,28 @@
                             <p class=\"new\">product deleted succesfully</p>
                             <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
                         </div>";
-                    }
-                    elseif($succes == "update") {
+                    } elseif($succes == "update") {
                         echo "
                         <div class=\"news\">
                             <p class=\"new\">product updated succesfully</p>
+                            <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                        </div>";
+                    } elseif($succes == "create-categorie") {
+                        echo "
+                        <div class=\"news\">
+                            <p class=\"new\">categorie created succesfully</p>
+                            <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                        </div>";
+                    } elseif($succes == "delete-categorie") {
+                        echo "
+                        <div class=\"news\">
+                            <p class=\"new\">categorie deleted succesfully</p>
+                            <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                        </div>";
+                    } elseif($succes == "update-categorie") {
+                        echo "
+                        <div class=\"news\">
+                            <p class=\"new\">categorie updated succesfully</p>
                             <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
                         </div>";
                     } else {
@@ -118,37 +169,106 @@
                 }
             }
         ?>
-        <a href="admin-crud/create.php" class="add-product mb-btn">create a product <i class="fa-solid fa-plus"></i></a>
-
-        <div class="products">
+        <div class="admin-btns">
+            <a href="admin-crud/create-categorie.php" class="add-product mb-btn"><i class="btn-icon fa-solid fa-plus"></i> create a categorie</a>
+            <a href="admin-crud/create.php" class="add-product mb-btn"><i class="btn-icon fa-solid fa-plus"></i> create a product</a>
+        </div>
+        <h2>Categories</h2>
+        <div class="table-wrapper card">
             <?php
-                $sql = "SELECT * FROM products";
+                $sql = "SELECT * FROM categories";
                 $result = mysqli_query($mysqli, $sql);
                 if(mysqli_num_rows($result) > 0) {
+                    echo "
+                    <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Picture</th>
+                                    <th>Categorie's name</th>
+                                    <th>Total products</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead> 
+                            <tbody>           
+                    ";
                     while($row = mysqli_fetch_assoc($result)){
+                        $sql2 = "SELECT COUNT(*) as n FROM products WHERE categorie='$row[categorie_name]';";
+                        $result2 = mysqli_query($mysqli, $sql2);
+                        $row2 = mysqli_fetch_assoc($result2);
                         echo "
-                        <div class=\"product\">
-                            <div class=\"image-container\">
-                                <img src=\"uploads/$row[product_img]\">
-                            </div>
-                            <h2>$row[product_name]</h2>
-                            <p>$row[product_desc]</p>
-                            <p class=\"price\">$row[price] $</p>
-                            <div class=\"btns\">
-                                <a href=\"admin-crud/update.php?id=$row[id]\" class=\"update mb-btn\">
-                                    <i class=\"fa-solid fa-pen\"></i>
-                                    edit
-                                </a>
-                                <a href=\"admin-crud/delete.php?id=$row[id]\" class=\"delete mb-btn\">
-                                    <i class=\"fa-solid fa-trash\"></i>
-                                    delete
-                                </a>
-                            </div>
-                        </div>
+                        <tr>
+                            <td>
+                                <p class=\"id\">
+                                    $row[id]
+                                </p>
+                            </td>
+                            <td>
+                                <div class=\"simage-container\">
+                                    <img src=\"uploads/$row[image]\">
+                                </div>
+                            </td>
+                            <td>
+                                <p>$row[categorie_name]</p>
+                            </td>
+                            <td>
+                                <p>$row2[n]</p>
+                            </td>
+                            <td>
+                                <a href=\"admin-crud/delete-categorie.php?id=$row[id]\" class=\"mb-btn delete\"><i class=\"btn-icon fa-solid fa-trash\"></i> delete</a>
+                                <a href=\"admin-crud/update-categorie.php?id=$row[id]\" class=\"mb-btn update\"><i class=\"btn-icon fa-solid fa-pen\"></i> update</a>
+                                <a href=\"admin-crud/categorie-products.php?categorie=$row[categorie_name]\" class=\"view\"><i class=\"btn-icon fa-regular fa-eye\"></i> view products</a>
+                            </td>
+                        </tr>
                         ";
                     }
+                    echo "
+                        </tbody>
+                    </table>
+                    ";
                 } else {
-                    echo "<p>there are no products</p>";
+                    echo "<p>there are no categories</p>";
+                }
+            ?>
+        </div>
+        <h2>users</h2>
+        <div class="table-wrapper card">
+            <?php
+                $sql = "SELECT * FROM users";
+                $result = mysqli_query($mysqli, $sql);
+                if(mysqli_num_rows($result) > 0) {
+                    echo "
+                    <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                </tr>
+                            </thead> 
+                            <tbody>           
+                    ";
+                    while($row = mysqli_fetch_assoc($result)){
+                        echo "
+                        <tr>
+                            <td>
+                                <p class=\"id\">$row[id]</p>
+                            </td>
+                            <td>
+                                <p>$row[name]</p>
+                            </td>
+                            <td>
+                                <p>$row[email]</p>
+                            </td>
+                        </tr>
+                        ";
+                    }
+                    echo "
+                        </tbody>
+                    </table>
+                    ";
+                } else {
+                    echo "<p>there are no users in database</p>";
                 }
             ?>
         </div>
@@ -162,5 +282,6 @@
     </footer>
     <?php include "componants/icons.php"; ?>
     <script src="js/general.js"></script>
+    <script src="js/admin.js"></script>
 </body>
 </html>

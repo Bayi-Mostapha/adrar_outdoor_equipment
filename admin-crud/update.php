@@ -10,20 +10,39 @@
     $product_name = "";
     $product_desc = "";
     $price = "";
+    $product_categorie = "";
+    $colors = array();
+    $flag = false;
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $product_id = $mysqli->real_escape_string($_POST["id"]);
         $product_name = $mysqli->real_escape_string($_POST["name"]);
         $product_desc = $mysqli->real_escape_string($_POST["desc"]);
         $price = $mysqli->real_escape_string($_POST["price"]);
+        $product_categorie = $mysqli->real_escape_string($_POST["categorie"]);
+        $colors = $_POST["color"];
 
         $filename = "";
         $stmt = "";
 
-        if(empty($product_name )|| empty($product_desc) || empty($price)){
+        if(empty($product_name )|| empty($product_desc) || empty($price) || empty($product_categorie)){
             header("Location: update.php?id=$product_id&error=empty");
             exit();
         }
+
+        $sql = "SELECT * FROM categories WHERE categorie_name = ?";
+        $stmt = $mysqli->stmt_init();
+        if(!$stmt->prepare($sql)){
+            die("SQL error: " . $mysqli->error);
+        }
+        $stmt->bind_param("s", $product_categorie);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows <= 0) {
+            header("Location: ../update.php?error=categorie_not_exists");
+            exit();
+        }
+        $stmt->close();
 
         if (!filter_input(INPUT_POST, "price", FILTER_VALIDATE_FLOAT)) {
             header("Location: update.php?id=$product_id&error=invalid_price");
@@ -109,27 +128,51 @@
                 exit();
             }
 
-            $sql = "UPDATE products SET product_name = ?, product_desc = ?, product_img = ?, price = ? WHERE id=$product_id;";
+            $sql = "UPDATE products SET product_name = ?, product_desc = ?, product_img = ?, price = ?, categorie = ? WHERE id=$product_id;";
             $stmt = $mysqli->stmt_init();
             if(!$stmt->prepare($sql)){
                 die("SQL error: " . $mysqli->error);
             }
-            $stmt->bind_param("sssd", $product_name, $product_desc, $filename, $price);
+            $stmt->bind_param("sssds", $product_name, $product_desc, $filename, $price, $product_categorie);
             $stmt->execute();
             unlink($path);
-            header("Location: ../admin.php?succes=update");
-            exit();
+            $flag = true;
         } else {
-            $sql = "UPDATE products SET product_name = ?, product_desc = ?, price = ? WHERE id=$product_id;";
+            $sql = "UPDATE products SET product_name = ?, product_desc = ?, price = ?, categorie = ? WHERE id = $product_id;";
             $stmt = $mysqli->stmt_init();
             if(!$stmt->prepare($sql)){
                 die("SQL error: " . $mysqli->error);
             }
-            $stmt->bind_param("ssd", $product_name, $product_desc, $price);
+            $stmt->bind_param("ssds", $product_name, $product_desc, $price, $product_categorie);
             $stmt->execute();
+            $flag = true;
+        }
+        if (isset($colors)) {
+            $sqlDelete = "DELETE FROM colors WHERE product_id = ?;";
+            $stmtDelete = $mysqli->stmt_init();
+            if (!$stmtDelete->prepare($sqlDelete)) {
+                die("SQL error: " . $mysqli->error);
+            }
+            $stmtDelete->bind_param("i", $product_id);
+            $stmtDelete->execute();
+        
+            $sqlInsert = "INSERT INTO colors (product_id, color) VALUES (?, ?);";
+            $stmtInsert = $mysqli->stmt_init();
+            if (!$stmtInsert->prepare($sqlInsert)) {
+                die("SQL error: " . $mysqli->error);
+            }
+            foreach ($colors as $color) {
+                $stmtInsert->bind_param("is", $product_id, $color);
+                $stmtInsert->execute();
+            }
+        
+            $stmtDelete->close();
+            $stmtInsert->close();
+        }  
+        if($flag){
             header("Location: ../admin.php?succes=update");
             exit();
-        }
+        }      
     } elseif ($_SERVER["REQUEST_METHOD"] == "GET"){
         $id = $mysqli->real_escape_string($_GET["id"]);
 
@@ -152,15 +195,41 @@
             $product_name = $row["product_name"];
             $product_desc = $row["product_desc"];
             $price = $row["price"];
+            $product_categorie = $row["categorie"];
         } else {
             header("Location: ../admin.php");
             exit();
         }
-        $stmt->close();
 
+        $sql = "SELECT * FROM colors WHERE product_id = ?";
+        if(!$stmt->prepare($sql)){
+            die("SQL error: " . $mysqli->error);
+        }
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()){
+                $colors[] = $row["color"];
+            }
+        }
+    }
+    $sql = "SELECT * FROM categories";
+    $result = $mysqli->query($sql);
+    $DB_categories = array();
+    if ($result) {
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $DB_categories[] = $row["categorie_name"];
+            }
+        } else {
+            header("Location: ../admin.php?error=no_categories");
+            exit();
+        }
+        $result->close();
     } else {
-        header("Location: ../admin.php");
-        exit();
+        die("SQL error: " . $mysqli->error);
     }
 ?>
 <!DOCTYPE html>
@@ -207,6 +276,12 @@
                         <p class=\"error\">there was an error while uploading your file</p>
                         <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
                     </div>";
+                } elseif($error == "categorie_not_exists") {
+                    echo "
+                    <div class=\"errors\">
+                        <p class=\"error\">this categorie does not exist in database</p>
+                        <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                    </div>";
                 } else {
                     header("Location: update.php");
                     exit();
@@ -228,8 +303,30 @@
             <label for="price">product price</label>
             <input type="text" name="price" id="price" value="<?php echo $price; ?>">
         </div>
+        <div class="form-row">
+            <p>product categorie</p>
+            <?php
+                foreach ($DB_categories as $DB_categorie) {
+                    echo "<div><input type=\"radio\" name=\"categorie\" value=\"$DB_categorie\" id=\"$DB_categorie\"";
+                    if($DB_categorie == $product_categorie){
+                        echo "checked";
+                    }
+                    echo "> <label for=\"$DB_categorie\">$DB_categorie</label></div>";
+                }
+            ?>
+        </div>
+        <div class="form-row color-inputs">
+            <p>product colors (optionnal)</p>
+            <button type="button" class="add-color-input">add color</button>
+            <?php
+                foreach($colors as $color){
+                    echo"<input type=\"color\" name=\"color[]\" value=\"$color\">";
+                }
+            ?>
+        </div>
         <div class="form-row file-container">
-            <input type="file" name="image">
+            <div id="preview"></div>
+            <input type="file" name="image" id="image">
         </div>
         <div class="btns">
             <a href="../admin.php" class="mb-btn cancel"><i class="fa-solid fa-ban"></i> cancel</a>
@@ -238,5 +335,6 @@
     </form>
     <?php include "../componants/icons.php"; ?>
     <script src="../js/general.js"></script>
+    <script src="../js/admin-crud.js"></script>
 </body>
 </html>
