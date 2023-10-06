@@ -94,6 +94,18 @@
                             <p class=\"error\">product already in cart</p>
                             <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
                         </div>";
+                    } elseif($error == "empty") {
+                        echo "
+                        <div class=\"errors\">
+                            <p class=\"error\">you need to choose a color and provide a quantity</p>
+                            <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                        </div>";
+                    } elseif($error == "invalid_quantity") {
+                        echo "
+                        <div class=\"errors\">
+                            <p class=\"error\">you need to provide a valid quantity</p>
+                            <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                        </div>";
                     }
                 } elseif(isset($_GET["succes"])) {
                     $succes = $_GET["succes"];
@@ -114,8 +126,9 @@
                 </div>
             </div>
             <div class="right">
-                <form action="cart-handler.html" method="post">
+                <form action="cart-handler.php" method="post">
                     <input type="hidden" name="categorie" value=<?php echo $categorie; ?>>
+                    <input type="hidden" name="product_id" value=<?php echo $id; ?>>
                     <h1><?php echo htmlspecialchars($product_name); ?></h1>
                     <p class="price"><?php echo htmlspecialchars($product_price); ?></p>
                     <h2>description</h2>
@@ -123,19 +136,32 @@
                     <h2>colors</h2>
                     <div class="colors">
                         <?php
+                            $flag = false;
                             foreach($colors as $color) {
-                                echo "
-                                <label for=\"color" . htmlspecialchars($color) . "\" class=\"product-color\" style=\"background-color: " . htmlspecialchars($color) . ";\"></label>
-                                <input type=\"checkbox\" id=\"color" . htmlspecialchars($color) . "\" name=\"color[]\" value=\"" . htmlspecialchars($color) . "\">
-                                ";
+                                if($flag) {
+                                    echo "
+                                    <div class=\"product-color-wrapper\">
+                                        <label for=\"color" . htmlspecialchars($color) . "\" class=\"product-color\" style=\"background-color: " . htmlspecialchars($color) . ";\"></label>
+                                        <input type=\"radio\" class=\"color-radio\" id=\"color" . htmlspecialchars($color) . "\" name=\"color\" value=\"" . htmlspecialchars($color) . "\">
+                                    </div>
+                                    ";
+                                } else {
+                                    echo "
+                                    <div class=\"product-color-wrapper\">
+                                        <label for=\"color" . htmlspecialchars($color) . "\" class=\"product-color checked\" style=\"background-color: " . htmlspecialchars($color) . ";\"></label>
+                                        <input type=\"radio\" class=\"color-radio\" id=\"color" . htmlspecialchars($color) . "\" name=\"color\" value=\"" . htmlspecialchars($color) . "\" checked>
+                                    </div>
+                                    ";
+                                    $flag = true;
+                                }
                             }
                         ?>
                     </div>
                     <h2>quantity</h2>
                     <div class="number-input">
-                        <button class="minus">-</button>
-                        <input type="text" name="quantity" class="quantity">
-                        <button class="plus">+</button>
+                        <button type="button" class="minus">-</button>
+                        <input type="text" name="quantity" class="quantity" value="1">
+                        <button type="button" class="plus">+</button>
                     </div>
                     <?php
                         if(isset($_SESSION["id"])){
@@ -157,5 +183,6 @@
     </footer>
     <?php include "../componants/icons.php"; ?>
     <script src="../js/general.js"></script>
+    <script src="../js/product.js"></script>
 </body>
 </html>
