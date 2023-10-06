@@ -61,7 +61,6 @@
         echo "
         <div class=\"home-bg categorie-bg\" style=\"background: url('../uploads/$bg');\">
             <h1 class=\"bg-content\">explore <span class=\"color\">$categorie</span> products</h1>
-            <button class=\"scroll-down mb-btn bg-content\"><i class=\"fa-solid fa-arrow-down\"></i></button>
         </div>
         ";
     ?>

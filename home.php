@@ -55,7 +55,7 @@
                 ";
         }
     ?>
-    <main>
+    <main class="scroll-dest">
         <h2 class="cat-title">explore our categories</h2>
         <div class="categories">
             <?php

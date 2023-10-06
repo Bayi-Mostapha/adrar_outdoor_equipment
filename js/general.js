@@ -13,3 +13,10 @@ if (news) {
         news.classList.add('remove');
     });
 }
+
+const scrollButton = document.querySelector('.scroll-down');
+const scrollDestination = document.querySelector('.scroll-dest');
+if (scrollButton && scrollDestination)
+    scrollButton.addEventListener('click', () => {
+        scrollDestination.scrollIntoView({ behavior: 'smooth' });
+    });
