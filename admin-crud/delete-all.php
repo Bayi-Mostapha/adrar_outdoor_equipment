@@ -40,6 +40,14 @@
             }
             $stmt3->bind_param("i", $row["id"]);
             $stmt3->execute();
+
+            $sql4 = "DELETE FROM colors WHERE product_id=?;";
+            $stmt4 = $mysqli->stmt_init();
+            if(!$stmt4->prepare($sql4)){
+                die("SQL error: " . $mysqli->error);
+            }
+            $stmt4->bind_param("i", $row["id"]);
+            $stmt4->execute();
         }
     }
 

@@ -45,7 +45,8 @@
         ?>
         <div class="products">
             <?php
-                $sql2 = "SELECT * FROM cart WHERE user_id=$_SESSION[id]";
+                $user_id = $mysqli->real_escape_string($_SESSION["id"]);
+                $sql2 = "SELECT * FROM cart WHERE user_id=$user_id";
                 $result2 = mysqli_query($mysqli, $sql2);
 
                 if(mysqli_num_rows($result2) > 0) {
@@ -53,6 +54,7 @@
                         $sql = "SELECT * FROM products WHERE id=$row2[product_id]";
                         $result = mysqli_query($mysqli, $sql);
                         $row = mysqli_fetch_assoc($result);
+                        $urlColor = substr($row2["color"], 1);
                         echo "
                         <div class=\"product\">
                             <div class=\"image-container\">
@@ -63,7 +65,7 @@
                             <p>$row[price]</p>
                             <div class=\"cart-color\" style=\"background-color: $row2[color];\"></div>
                             <p>$row2[quantity]</p>
-                            <a href=\"cart-delete.php?id=$row[id]\" class=\"delete mb-btn\">
+                            <a href=\"cart-delete.php?id=$row[id]&color=%23$urlColor&quantity=$row2[quantity]\" class=\"delete mb-btn\">
                                 <i class=\"fa-solid fa-trash\"></i>
                                 remove from cart
                             </a>
