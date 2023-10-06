@@ -138,6 +138,12 @@
                             <p class=\"new\">product deleted succesfully</p>
                             <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
                         </div>";
+                    } elseif($succes == "delete_all") {
+                        echo "
+                        <div class=\"news\">
+                            <p class=\"new\">products deleted succesfully</p>
+                            <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                        </div>";
                     } elseif($succes == "update") {
                         echo "
                         <div class=\"news\">
@@ -269,6 +275,47 @@
                     ";
                 } else {
                     echo "<p>there are no users in database</p>";
+                }
+            ?>
+        </div>
+        <h2>admins</h2>
+        <div class="table-wrapper card">
+            <?php
+                $sql = "SELECT * FROM admins";
+                $result = mysqli_query($mysqli, $sql);
+                if(mysqli_num_rows($result) > 0) {
+                    echo "
+                    <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                </tr>
+                            </thead> 
+                            <tbody>           
+                    ";
+                    while($row = mysqli_fetch_assoc($result)){
+                        echo "
+                        <tr>
+                            <td>
+                                <p class=\"id\">$row[id]</p>
+                            </td>
+                            <td>
+                                <p>$row[name]</p>
+                            </td>
+                            <td>
+                                <p>$row[email]</p>
+                            </td>
+                        </tr>
+                        ";
+                    }
+                    echo "
+                        </tbody>
+                    </table>
+                    ";
+                } else {
+                    echo "<p>there are no admins in database</p>";
                 }
             ?>
         </div>

@@ -51,5 +51,5 @@
         }
     }
 
-    header("Location: ../admin.php?succes=delete");
+    header("Location: ../admin.php?succes=delete_all");
     exit();

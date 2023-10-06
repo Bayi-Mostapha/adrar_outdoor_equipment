@@ -220,7 +220,8 @@
             <input type="text" name="name" id="name" value="<?php echo $categorie_name; ?>">
         </div>
         <div class="form-row file-container">
-            <input type="file" name="image">
+            <div id="preview"></div>
+            <input type="file" name="image" id="image">
         </div>
         <div class="btns">
             <a href="../admin.php" class="mb-btn cancel"><i class="fa-solid fa-ban"></i> cancel</a>
@@ -229,5 +230,6 @@
     </form>
     <?php include "../componants/icons.php"; ?>
     <script src="../js/general.js"></script>
+    <script src="../js/admin-crud.js"></script>
 </body>
 </html>
