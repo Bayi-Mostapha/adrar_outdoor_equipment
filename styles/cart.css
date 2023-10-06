@@ -8,6 +8,13 @@ body {
     gap: 1rem;
 }
 
+.cart-color {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 1px solid var(--gray-txt);
+}
+
 .delete {
     width: fit-content;
     background-color: #FCE4EC;

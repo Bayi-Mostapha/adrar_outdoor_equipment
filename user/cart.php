@@ -61,6 +61,8 @@
                             <h2>$row[product_name]</h2>
                             <p>$row[product_desc]</p>
                             <p>$row[price]</p>
+                            <div class=\"cart-color\" style=\"background-color: $row2[color];\"></div>
+                            <p>$row2[quantity]</p>
                             <a href=\"cart-delete.php?id=$row[id]\" class=\"delete mb-btn\">
                                 <i class=\"fa-solid fa-trash\"></i>
                                 remove from cart
