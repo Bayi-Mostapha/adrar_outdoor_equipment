@@ -1,12 +1,12 @@
 <?php
+    include_once "../session-config.php";
     session_start();
+    include_once "../session-regeneration.php";
     require_once("../db-connection.php");
-
     if(!isset($_SESSION["id"]) || !$_SESSION["is_admin"]){
         header("Location: ../admin-login.php");
         exit();
     }
-
     if($_SERVER["REQUEST_METHOD"] != 'GET'){
         header("Location: ../admin.php");
         exit();

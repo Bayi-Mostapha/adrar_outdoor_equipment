@@ -1,5 +1,7 @@
 <?php
+    include_once "session-config.php";
     session_start();
+    include_once "session-regeneration.php";
     require_once("db-connection.php");
 ?>
 <!DOCTYPE html>

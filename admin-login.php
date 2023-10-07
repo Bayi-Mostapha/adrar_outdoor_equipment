@@ -30,6 +30,7 @@
         if($row){
             if (password_verify($password, $row["password"])){
                 session_start();
+                session_regenerate_id(true);
                 $_SESSION["id"] = $row["id"];
                 $_SESSION["name"] = $row["name"];
                 $_SESSION["is_admin"] = true;
