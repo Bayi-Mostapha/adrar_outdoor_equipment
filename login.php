@@ -85,6 +85,17 @@
                         header("Location: login.php");
                         exit();
                     }
+                } elseif(isset($_GET["succes"])){
+                    $succes = $_GET["succes"];
+                    if($succes == "signup"){
+                        echo "
+                        <div class=\"news\">
+                            <p class=\"new\">signed up succesfully</p>
+                        </div>";
+                    } else {
+                        header("Location: login.php");
+                        exit();
+                    }
                 }
                 if(isset($_GET["email"])){
                     $email = filter_input(INPUT_GET, "email", FILTER_SANITIZE_SPECIAL_CHARS);
