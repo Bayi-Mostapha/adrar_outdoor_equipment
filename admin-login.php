@@ -90,7 +90,7 @@
                     if($succes == "signup"){
                         echo "
                         <div class=\"news\">
-                            <p class=\"new\">signed up succesfully, wait to be approved</p>
+                            <p class=\"new\">signed up succesfully, wait for you account to be approved</p>
                         </div>";
                     } else {
                         header("Location: admin-login.php");

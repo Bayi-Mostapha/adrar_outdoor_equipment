@@ -168,6 +168,18 @@
                             <p class=\"new\">categorie updated succesfully</p>
                             <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
                         </div>";
+                    } elseif($succes == "admin_approved") {
+                        echo "
+                        <div class=\"news\">
+                            <p class=\"new\">admin approved</p>
+                            <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                        </div>";
+                    } elseif($succes == "admin_denied") {
+                        echo "
+                        <div class=\"news\">
+                            <p class=\"new\">admin denied</p>
+                            <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                        </div>";
                     } else {
                         header("Location: admin.php");
                         exit();
@@ -221,8 +233,8 @@
                                 <p>$row2[n]</p>
                             </td>
                             <td>
-                                <a href=\"admin-crud/delete-categorie.php?id=$row[id]\" class=\"mb-btn delete\"><i class=\"btn-icon fa-solid fa-trash\"></i> delete</a>
                                 <a href=\"admin-crud/update-categorie.php?id=$row[id]\" class=\"mb-btn update\"><i class=\"btn-icon fa-solid fa-pen\"></i> update</a>
+                                <a href=\"admin-crud/delete-categorie.php?id=$row[id]\" class=\"mb-btn delete\"><i class=\"btn-icon fa-solid fa-trash\"></i> delete</a>
                                 <a href=\"admin-crud/categorie-products.php?categorie=$row[categorie_name]\" class=\"view\"><i class=\"btn-icon fa-regular fa-eye\"></i> view products</a>
                             </td>
                         </tr>
@@ -316,6 +328,53 @@
                     ";
                 } else {
                     echo "<p>there are no admins in database</p>";
+                }
+            ?>
+        </div>
+
+        <h2>requests to be an admin</h2>
+        <div class="table-wrapper card">
+            <?php
+                $sql = "SELECT * FROM admin_requests";
+                $result = mysqli_query($mysqli, $sql);
+                if(mysqli_num_rows($result) > 0) {
+                    echo "
+                    <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead> 
+                            <tbody>           
+                    ";
+                    while($row = mysqli_fetch_assoc($result)){
+                        echo "
+                        <tr>
+                            <td>
+                                <p class=\"id\">$row[id]</p>
+                            </td>
+                            <td>
+                                <p>$row[name]</p>
+                            </td>
+                            <td>
+                                <p>$row[email]</p>
+                            </td>
+                            <td>
+                                <a href=\"admin-crud/approve-admin.php?id=$row[id]\" class=\"update mb-btn\"><i class=\"btn-icon fa-solid fa-check\"></i> approve</a>
+                                <a href=\"admin-crud/deny-admin.php?id=$row[id]\" class=\"delete mb-btn\"><i class=\"btn-icon fa-solid fa-xmark\"></i> deny</a>
+                            </td>
+                        </tr>
+                        ";
+                    }
+                    echo "
+                        </tbody>
+                    </table>
+                    ";
+                } else {
+                    echo "<p>there are no requests to be an admin in database</p>";
                 }
             ?>
         </div>
