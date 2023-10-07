@@ -2,8 +2,8 @@
     include_once("db-connection.php");
 
     if($_SERVER["REQUEST_METHOD"] == "POST") {
-        $name = $mysqli->real_escape_string($_POST["name"]);
-        $email = $mysqli->real_escape_string($_POST["email"]);
+        $name = strtolower($mysqli->real_escape_string($_POST["name"]));
+        $email = strtolower($mysqli->real_escape_string($_POST["email"]));
         $password = $mysqli->real_escape_string($_POST["password"]);
         $confirm_password = $mysqli->real_escape_string($_POST["confirm_password"]);
 

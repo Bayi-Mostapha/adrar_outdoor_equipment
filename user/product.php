@@ -56,7 +56,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/general.css">
     <link rel="stylesheet" href="../styles/product.css">
-    <title><?php echo $product_name;?></title>
+    <title><?php echo htmlspecialchars($product_name, ENT_QUOTES, 'UTF-8');?></title>
 </head>
 <body>
     <?php
@@ -123,22 +123,22 @@
         <div class="main-product">
             <div class="left">
                 <div class="image-container">
-                    <?php echo"<img src=\"../uploads/" . htmlspecialchars($product_image) . "\">";?>
+                    <?php echo"<img src=\"../uploads/$product_image\">";?>
                 </div>
             </div>
             <div class="right">
                 <form action="cart-handler.php" method="post">
-                    <input type="hidden" name="categorie" value=<?php echo $categorie; ?>>
-                    <input type="hidden" name="product_id" value=<?php echo $id; ?>>
+                    <input type="hidden" name="categorie" value=<?php echo htmlspecialchars($categorie, ENT_QUOTES, 'UTF-8'); ?>>
+                    <input type="hidden" name="product_id" value=<?php echo htmlspecialchars($id, ENT_QUOTES, 'UTF-8'); ?>>
                     <div class="product-row">
-                        <h1><?php echo htmlspecialchars($product_name); ?></h1>
+                        <h1><?php echo htmlspecialchars($product_name, ENT_QUOTES, 'UTF-8'); ?></h1>
                     </div>
                     <div class="product-row">
-                        <p class="price">$<?php echo htmlspecialchars($product_price); ?></p>
+                        <p class="price">$<?php echo htmlspecialchars($product_price, ENT_QUOTES, 'UTF-8'); ?></p>
                     </div>
                     <div class="product-row">
                         <h2>description</h2>
-                        <p><?php echo htmlspecialchars($product_desc); ?></p>
+                        <p><?php echo htmlspecialchars($product_desc, ENT_QUOTES, 'UTF-8'); ?></p>
                     </div>
                     <div class="product-row">
                         <h2>color</h2>
@@ -149,15 +149,15 @@
                                     if($flag) {
                                         echo "
                                         <div class=\"product-color-wrapper\">
-                                            <label for=\"color" . htmlspecialchars($color) . "\" class=\"product-color\" style=\"background-color: " . htmlspecialchars($color) . ";\"></label>
-                                            <input type=\"radio\" class=\"color-radio\" id=\"color" . htmlspecialchars($color) . "\" name=\"color\" value=\"" . htmlspecialchars($color) . "\">
+                                            <label for=\"color" . htmlspecialchars($color, ENT_QUOTES, 'UTF-8') . "\" class=\"product-color\" style=\"background-color: " . htmlspecialchars($color, ENT_QUOTES, 'UTF-8') . ";\"></label>
+                                            <input type=\"radio\" class=\"color-radio\" id=\"color" . htmlspecialchars($color, ENT_QUOTES, 'UTF-8') . "\" name=\"color\" value=\"" . htmlspecialchars($color, ENT_QUOTES, 'UTF-8') . "\">
                                         </div>
                                         ";
                                     } else {
                                         echo "
                                         <div class=\"product-color-wrapper\">
-                                            <label for=\"color" . htmlspecialchars($color) . "\" class=\"product-color checked\" style=\"background-color: " . htmlspecialchars($color) . ";\"></label>
-                                            <input type=\"radio\" class=\"color-radio\" id=\"color" . htmlspecialchars($color) . "\" name=\"color\" value=\"" . htmlspecialchars($color) . "\" checked>
+                                            <label for=\"color" . htmlspecialchars($color, ENT_QUOTES, 'UTF-8') . "\" class=\"product-color checked\" style=\"background-color: " . htmlspecialchars($color, ENT_QUOTES, 'UTF-8') . ";\"></label>
+                                            <input type=\"radio\" class=\"color-radio\" id=\"color" . htmlspecialchars($color, ENT_QUOTES, 'UTF-8') . "\" name=\"color\" value=\"" . htmlspecialchars($color, ENT_QUOTES, 'UTF-8') . "\" checked>
                                         </div>
                                         ";
                                         $flag = true;

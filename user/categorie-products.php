@@ -34,7 +34,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/general.css">
     <link rel="stylesheet" href="../styles/home.css">
-    <title><?php echo $categorie;?></title>
+    <title><?php echo htmlspecialchars($categorie, ENT_QUOTES, 'UTF-8');?></title>
 </head>
 <body>
     <?php
@@ -62,7 +62,7 @@
         }
         echo "
         <div class=\"home-bg categorie-bg\" style=\"background: url('../uploads/$bg');\">
-            <h1 class=\"bg-content\">explore <span class=\"color\">$categorie</span> products</h1>
+            <h1 class=\"bg-content\">explore <span class=\"color\">" . htmlspecialchars($categorie, ENT_QUOTES, 'UTF-8') . "</span> products</h1>
         </div>
         ";
     ?>
@@ -84,9 +84,9 @@
                                 <div class=\"image-container\">
                                     <img src=\"../uploads/$row[product_img]\">
                                 </div>
-                                <h2>$row[product_name]</h2>
-                                <p class=\"price\">$row[price] $</p>
-                                <a href=\"product.php?id=$row[id]\" class=\"link\">more details</a>
+                                <h2>" . htmlspecialchars($row["product_name"], ENT_QUOTES, 'UTF-8') . "</h2>
+                                <p class=\"price\">" . htmlspecialchars($row["price"], ENT_QUOTES, 'UTF-8') . " $</p>
+                                <a href=\"product.php?id=" . htmlspecialchars($row["id"], ENT_QUOTES, 'UTF-8') . "\" class=\"link\">more details</a>
                             </div>
                             ";
                         

@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class=\"home-bg home-bg2\">
-                    <h1 class=\"bg-content\">welcome <span class=\"color\">$_SESSION[name]</span></h1>
+                    <h1 class=\"bg-content\">welcome <span class=\"color\">" . htmlspecialchars($_SESSION["name"], ENT_QUOTES, 'UTF-8') . "</span></h1>
                     <p class=\"bg-content\">Adrar Outdoors is your go-to store for all your 
                     outdoor adventure and camping needs. We offer a vast selection of top-quality
                      gear, from rugged backpacks to cozy sleeping bags, ensuring you're well-equipped
@@ -70,8 +70,8 @@
                             <div class=\"image-container\">
                                 <img src=\"uploads/$row[image]\">
                             </div>
-                            <h2>$row[categorie_name]</h2>
-                            <a href=\"user/categorie-products.php?categorie=$row[categorie_name]\" class=\"link\">
+                            <h2>" . htmlspecialchars($row["categorie_name"], ENT_QUOTES, 'UTF-8') . "</h2>
+                            <a href=\"user/categorie-products.php?categorie=" . htmlspecialchars($row["categorie_name"], ENT_QUOTES, 'UTF-8') . "\" class=\"link\">
                                 view products
                             </a>
                         </div>

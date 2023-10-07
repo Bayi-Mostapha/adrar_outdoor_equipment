@@ -13,6 +13,7 @@
     }
 
     $categorie =  $mysqli->real_escape_string($_GET["categorie"]);
+    $htmlcategorie = htmlspecialchars($categorie, ENT_QUOTES, 'UTF-8');
     if(empty($categorie)){
         header("Location: ../admin.php");
         exit();
@@ -49,7 +50,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles\general.css">
     <link rel="stylesheet" href="../styles\admin.css">
-    <title><?php echo filter_input(INPUT_GET, "categorie", FILTER_SANITIZE_SPECIAL_CHARS)?></title>
+    <title><?php echo $htmlcategorie;?></title>
 </head>
 <body>
     <div class="navbar">
@@ -59,7 +60,7 @@
         <a href="admin-logout.php" class="icon-btn"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
     </div>
     <main>
-        <h1>welcome <?php echo $_SESSION["name"]; ?>, check your <span class="color"><?php echo filter_input(INPUT_GET, "categorie", FILTER_SANITIZE_SPECIAL_CHARS)?></span> products</h1>
+        <h1>welcome <?php echo htmlspecialchars($_SESSION["name"], ENT_QUOTES, 'UTF-8'); ?>, check <span class="color"><?php echo $htmlcategorie;?></span> products</h1>
         <div class="btns">
             <?php
                 echo "<a href=\"create.php?categorie=$categorie\" class=\"add-product mb-btn\"><i class=\"btn-icon fa-solid fa-plus\"></i> create a product</a>";
@@ -84,9 +85,9 @@
                             <div class=\"image-container\">
                                 <img src=\"../uploads/$row[product_img]\">
                             </div>
-                            <h2>$row[product_name]</h2>
-                            <p>$row[product_desc]</p>
-                            <p class=\"price\">$row[price] $</p>
+                            <h2>" . htmlspecialchars($row["product_name"], ENT_QUOTES, 'UTF-8') . "</h2>
+                            <p>" . htmlspecialchars($row["product_desc"], ENT_QUOTES, 'UTF-8') . "</p>
+                            <p class=\"price\">" . htmlspecialchars($row["price"], ENT_QUOTES, 'UTF-8') . " $</p>
                             <div class=\"btns\">
                                 <a href=\"update.php?id=$row[id]\" class=\"update mb-btn\">
                                     <i class=\"btn-icon fa-solid fa-pen\"></i>

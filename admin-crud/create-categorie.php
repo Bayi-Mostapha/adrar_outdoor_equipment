@@ -84,6 +84,7 @@
         if(!$stmt->prepare($sql)){
             die("SQL error: " . $mysqli->error);
         }
+        $categorie_name = strtolower($categorie_name);
         $stmt->bind_param("ss", $categorie_name, $filename);
         $stmt->execute();
         header("Location: ../admin.php?succes=create-categorie");

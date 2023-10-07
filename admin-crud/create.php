@@ -10,10 +10,10 @@
     $selected_categorie = "";
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
-        $product_name = $mysqli->real_escape_string($_POST["name"]);
-        $product_desc = $mysqli->real_escape_string($_POST["desc"]);
+        $product_name = strtolower($mysqli->real_escape_string($_POST["name"]));
+        $product_desc = strtolower($mysqli->real_escape_string($_POST["desc"]));
         $product_price = $mysqli->real_escape_string($_POST["price"]);
-        $product_categorie = $mysqli->real_escape_string($_POST["categorie"]);
+        $product_categorie = strtolower($mysqli->real_escape_string($_POST["categorie"]));
         $colors = $_POST["color"];
         $filename = "";
 
@@ -118,11 +118,10 @@
         if (!$stmtColor->prepare($sqlColor)) {
             die("SQL error: " . $mysqli->error);
         }
-
         foreach ($colors as $color) {
             if ($color != "not-color") {
-                $escapedColor = $mysqli->real_escape_string($color); // Store escaped color in a variable
-                $stmtColor->bind_param("is", $id, $escapedColor); // Use the variable in bind_param
+                $escapedColor = strtolower($mysqli->real_escape_string($color));
+                $stmtColor->bind_param("is", $id, $escapedColor);
                 $stmtColor->execute();
             }
         }
@@ -224,11 +223,12 @@
             <p class="input-title">product categorie</p>
             <?php
                 foreach ($DB_categories as $DB_categorie) {
-                    echo "<div><input type=\"radio\" name=\"categorie\" value=\"$DB_categorie\" id=\"$DB_categorie\"";
+                    $filtered_DB_categorie = htmlspecialchars($DB_categorie, ENT_QUOTES, 'UTF-8');
+                    echo "<div><input type=\"radio\" name=\"categorie\" value=\"$filtered_DB_categorie\" id=\"$filtered_DB_categorie\"";
                     if(isset($selected_categorie) && $DB_categorie == $selected_categorie){
                         echo "checked";
                     }
-                    echo "> <label for=\"$DB_categorie\">$DB_categorie</label></div>";
+                    echo "> <label for=\"$filtered_DB_categorie\">$filtered_DB_categorie</label></div>";
                 }
             ?>
         </div>

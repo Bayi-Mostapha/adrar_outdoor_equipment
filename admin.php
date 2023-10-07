@@ -26,7 +26,7 @@
     </div>
     <main>
         <div class="greeting">
-            <h1>Welcome back, <?php echo $_SESSION["name"]; ?> &#128075;</h1>
+            <h1>Welcome back, <?php echo htmlspecialchars($_SESSION["name"], ENT_QUOTES, 'UTF-8'); ?> &#128075;</h1>
             <div class="date-time">
                 <p class="date"></p>
                 <p>|</p>
@@ -43,9 +43,7 @@
             echo "
             <div class=\"stat card\">
                 <p class=\"title\">total categories</p>
-                <p class=\"number\">
-                    $row[n]
-                </p>
+                <p class=\"number\">" . htmlspecialchars($row["n"], ENT_QUOTES, 'UTF-8') . "</p>
                 <div class=\"icon\">
                     <i class=\"fa-solid fa-boxes-stacked\"></i>
                 </div>
@@ -58,9 +56,7 @@
             echo "
             <div class=\"stat card\">
                 <p class=\"title\">total products</p>
-                <p class=\"number\">
-                    $row[n]
-                </p>
+                <p class=\"number\">" . htmlspecialchars($row["n"], ENT_QUOTES, 'UTF-8') . "</p>
                 <div class=\"icon\">
                     <i class=\"fa-solid fa-dolly\"></i>
                 </div>
@@ -73,9 +69,7 @@
             echo "
             <div class=\"stat card\">
                 <p class=\"title\">total users</p>
-                <p class=\"number\">
-                    $row[n]
-                </p>
+                <p class=\"number\">" . htmlspecialchars($row["n"], ENT_QUOTES, 'UTF-8') . "</p>
                 <div class=\"icon\">
                     <i class=\"fa-solid fa-users\"></i>
                 </div>
@@ -88,9 +82,7 @@
             echo "
             <div class=\"stat card\">
                 <p class=\"title\">total admins</p>
-                <p class=\"number\">
-                    $row[n]
-                </p>
+                <p class=\"number\">" . htmlspecialchars($row["n"], ENT_QUOTES, 'UTF-8') . "</p>
                 <div class=\"icon\">
                     <i class=\"fa-solid fa-user-tie\"></i>
                 </div>
@@ -219,9 +211,7 @@
                         echo "
                         <tr>
                             <td>
-                                <p class=\"id\">
-                                    $row[id]
-                                </p>
+                                <p class=\"id\">" . htmlspecialchars($row["id"], ENT_QUOTES, 'UTF-8') . "</p>
                             </td>
                             <td>
                                 <div class=\"simage-container\">
@@ -229,15 +219,15 @@
                                 </div>
                             </td>
                             <td>
-                                <p>$row[categorie_name]</p>
+                                <p>" . htmlspecialchars($row["categorie_name"], ENT_QUOTES, 'UTF-8') . "</p>
                             </td>
                             <td>
-                                <p>$row2[n]</p>
+                                <p>" . htmlspecialchars($row2["n"], ENT_QUOTES, 'UTF-8') . "</p>
                             </td>
                             <td>
-                                <a href=\"admin-crud/update-categorie.php?id=$row[id]\" class=\"mb-btn update\"><i class=\"btn-icon fa-solid fa-pen\"></i> update</a>
-                                <a href=\"admin-crud/delete-categorie.php?id=$row[id]\" class=\"mb-btn delete\"><i class=\"btn-icon fa-solid fa-trash\"></i> delete</a>
-                                <a href=\"admin-crud/categorie-products.php?categorie=$row[categorie_name]\" class=\"view\"><i class=\"btn-icon fa-regular fa-eye\"></i> view products</a>
+                                <a href=\"admin-crud/update-categorie.php?id=" . htmlspecialchars($row["id"], ENT_QUOTES, 'UTF-8') . "\" class=\"mb-btn update\"><i class=\"btn-icon fa-solid fa-pen\"></i> update</a>
+                                <a href=\"admin-crud/delete-categorie.php?id=" . htmlspecialchars($row["id"], ENT_QUOTES, 'UTF-8') . "\" class=\"mb-btn delete\"><i class=\"btn-icon fa-solid fa-trash\"></i> delete</a>
+                                <a href=\"admin-crud/categorie-products.php?categorie=" . htmlspecialchars($row["categorie_name"], ENT_QUOTES, 'UTF-8') . "\" class=\"view\"><i class=\"btn-icon fa-regular fa-eye\"></i> view products</a>
                             </td>
                         </tr>
                         ";
@@ -272,13 +262,13 @@
                         echo "
                         <tr>
                             <td>
-                                <p class=\"id\">$row[id]</p>
+                                <p class=\"id\">" . htmlspecialchars($row["id"], ENT_QUOTES, 'UTF-8') . "</p>
                             </td>
                             <td>
-                                <p>$row[name]</p>
+                                <p>" . htmlspecialchars($row["name"], ENT_QUOTES, 'UTF-8') . "</p>
                             </td>
                             <td>
-                                <p>$row[email]</p>
+                                <p>" . htmlspecialchars($row["email"], ENT_QUOTES, 'UTF-8') . "</p>
                             </td>
                         </tr>
                         ";
@@ -313,13 +303,13 @@
                         echo "
                         <tr>
                             <td>
-                                <p class=\"id\">$row[id]</p>
+                                <p class=\"id\">" . htmlspecialchars($row["id"], ENT_QUOTES, 'UTF-8') . "</p>
                             </td>
                             <td>
-                                <p>$row[name]</p>
+                                <p>" . htmlspecialchars($row["name"], ENT_QUOTES, 'UTF-8') . "</p>
                             </td>
                             <td>
-                                <p>$row[email]</p>
+                                <p>" . htmlspecialchars($row["email"], ENT_QUOTES, 'UTF-8') . "</p>
                             </td>
                         </tr>
                         ";
@@ -356,17 +346,17 @@
                         echo "
                         <tr>
                             <td>
-                                <p class=\"id\">$row[id]</p>
+                                <p class=\"id\">" . htmlspecialchars($row["id"], ENT_QUOTES, 'UTF-8') . "</p>
                             </td>
                             <td>
-                                <p>$row[name]</p>
+                                <p>" . htmlspecialchars($row["name"], ENT_QUOTES, 'UTF-8') . "</p>
                             </td>
                             <td>
-                                <p>$row[email]</p>
+                                <p>" . htmlspecialchars($row["email"], ENT_QUOTES, 'UTF-8') . "</p>
                             </td>
                             <td>
-                                <a href=\"admin-crud/approve-admin.php?id=$row[id]\" class=\"update mb-btn\"><i class=\"btn-icon fa-solid fa-check\"></i> approve</a>
-                                <a href=\"admin-crud/deny-admin.php?id=$row[id]\" class=\"delete mb-btn\"><i class=\"btn-icon fa-solid fa-xmark\"></i> deny</a>
+                                <a href=\"admin-crud/approve-admin.php?id=" . htmlspecialchars($row["id"], ENT_QUOTES, 'UTF-8') . "\" class=\"update mb-btn\"><i class=\"btn-icon fa-solid fa-check\"></i> approve</a>
+                                <a href=\"admin-crud/deny-admin.php?id=" . htmlspecialchars($row["id"], ENT_QUOTES, 'UTF-8') . "\" class=\"delete mb-btn\"><i class=\"btn-icon fa-solid fa-xmark\"></i> deny</a>
                             </td>
                         </tr>
                         ";

@@ -14,10 +14,15 @@
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $categorie_id = $mysqli->real_escape_string($_POST["id"]);
-        $categorie_name = $mysqli->real_escape_string($_POST["name"]);
+        $categorie_name = strtolower($mysqli->real_escape_string($_POST["name"]));
 
         $filename = "";
         $stmt = "";
+
+        if(empty($categorie_id)) {
+            header("Location: ../admin.php");
+            exit();
+        }
 
         $sql = "SELECT * FROM categories WHERE id = ?";
         $stmt = $mysqli->stmt_init();
@@ -30,6 +35,9 @@
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             $old_categorie = $row["categorie_name"];
+        } else {
+            header("Location: ../admin.php");
+            exit();
         }
 
         if(empty($categorie_name)){
@@ -217,10 +225,10 @@
         }
     ?>
     <form action="update-categorie.php" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="id" value="<?php echo $id; ?>">
+        <input type="hidden" name="id" value="<?php echo htmlspecialchars($id, ENT_QUOTES, 'UTF-8'); ?>">
         <div class="form-row">
             <label for="name">categorie name</label>
-            <input type="text" name="name" id="name" value="<?php echo $categorie_name; ?>">
+            <input type="text" name="name" id="name" value="<?php echo htmlspecialchars($categorie_name, ENT_QUOTES, 'UTF-8'); ?>">
         </div>
         <div class="form-row file-container">
             <div id="preview" class="visible">

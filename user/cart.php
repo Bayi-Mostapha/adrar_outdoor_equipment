@@ -29,7 +29,7 @@
     </div>
     <main>
         <?php
-            echo "<h1>welcome to your cart, $_SESSION[name]</h1>";
+            echo "<h1>welcome to your cart, " . htmlspecialchars($_SESSION["name"], ENT_QUOTES, 'UTF-8') . "</h1>";
         ?>
         <?php
             if($_SERVER["REQUEST_METHOD"] == "GET"){
@@ -56,18 +56,18 @@
                         $sql = "SELECT * FROM products WHERE id=$row2[product_id]";
                         $result = mysqli_query($mysqli, $sql);
                         $row = mysqli_fetch_assoc($result);
-                        $urlColor = substr($row2["color"], 1);
+                        $urlColor = htmlspecialchars(substr($row2["color"], 1), ENT_QUOTES, 'UTF-8');
                         echo "
                         <div class=\"product\">
                             <div class=\"image-container\">
                                 <img src=\"../uploads/$row[product_img]\">
                             </div>
-                            <h2>$row[product_name]</h2>
-                            <p>$row[product_desc]</p>
-                            <p>$row[price]</p>
-                            <div class=\"cart-color\" style=\"background-color: $row2[color];\"></div>
-                            <p>$row2[quantity]</p>
-                            <a href=\"cart-delete.php?id=$row[id]&color=%23$urlColor&quantity=$row2[quantity]\" class=\"delete mb-btn\">
+                            <h2>" . htmlspecialchars($row["product_name"], ENT_QUOTES, 'UTF-8') . "</h2>
+                            <p>" . htmlspecialchars($row["product_desc"], ENT_QUOTES, 'UTF-8') . "</p>
+                            <p>" . htmlspecialchars($row["price"], ENT_QUOTES, 'UTF-8') . "</p>
+                            <div class=\"cart-color\" style=\"background-color: " . htmlspecialchars($row2["color"], ENT_QUOTES, 'UTF-8') . ";\"></div>
+                            <p>" . htmlspecialchars($row2["quantity"] , ENT_QUOTES, 'UTF-8') . "</p>
+                            <a href=\"cart-delete.php?id=" . htmlspecialchars($row["id"], ENT_QUOTES, 'UTF-8') . "&color=%23$urlColor&quantity=" . htmlspecialchars($row2["quantity"], ENT_QUOTES, 'UTF-8') . "\" class=\"delete mb-btn\">
                                 <i class=\"fa-solid fa-trash\"></i>
                                 remove from cart
                             </a>

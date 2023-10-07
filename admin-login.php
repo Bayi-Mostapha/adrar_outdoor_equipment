@@ -2,7 +2,7 @@
     include_once("db-connection.php");
     $email = "";
     if($_SERVER["REQUEST_METHOD"] == "POST"){
-        $email = $mysqli->real_escape_string($_POST["email"]);
+        $email = strtolower($mysqli->real_escape_string($_POST["email"]));
         $password = $mysqli->real_escape_string($_POST["password"]);
 
         if(empty($email) || empty($password)){
@@ -105,7 +105,7 @@
         ?>
         <div>
             <label for="email">email:</label>
-            <input type="email" name="email" id="email" value=<?php echo $email; ?>>
+            <input type="email" name="email" id="email" value=<?php echo htmlspecialchars($email, ENT_QUOTES, 'UTF-8'); ?>>
         </div>
         <div>
             <label for="password">password:</label>
