@@ -112,14 +112,18 @@
         $stmt->execute();
         $id = $mysqli->insert_id;
 
+        $sqlColor = "INSERT INTO colors (product_id, color) VALUES (?, ?);";
+        $stmtColor = $mysqli->stmt_init();
+        if (!$stmtColor->prepare($sqlColor)) {
+            die("SQL error: " . $mysqli->error);
+        }
+
         foreach ($colors as $color) {
-            $sqlColor = "INSERT INTO colors (product_id, color) VALUES (?, ?);";
-            $stmtColor = $mysqli->stmt_init();
-            if (!$stmtColor->prepare($sqlColor)) {
-                die("SQL error: " . $mysqli->error);
+            if ($color != "not-color") {
+                $escapedColor = $mysqli->real_escape_string($color); // Store escaped color in a variable
+                $stmtColor->bind_param("is", $id, $escapedColor); // Use the variable in bind_param
+                $stmtColor->execute();
             }
-            $stmtColor->bind_param("is", $id, $mysqli->real_escape_string($color));
-            $stmtColor->execute();
         }
 
         header("Location: ../admin.php?succes=create");
@@ -204,19 +208,19 @@
     ?>
     <form action="create.php" method="post" enctype="multipart/form-data">
         <div class="form-row">
-            <label for="name">product name</label>
+            <label for="name" class="input-title">product name</label>
             <input type="text" name="name" id="name">
         </div>
         <div class="form-row">
-            <label for="desc">product description</label>
+            <label for="desc" class="input-title">product description</label>
             <textarea name="desc" id="desc" cols="30" rows="10"></textarea>
         </div>
         <div class="form-row">
-            <label for="price">product price</label>
+            <label for="price" class="input-title">product price</label>
             <input type="text" name="price" id="price">
         </div>
         <div class="form-row">
-            <p>product categorie</p>
+            <p class="input-title">product categorie</p>
             <?php
                 foreach ($DB_categories as $DB_categorie) {
                     echo "<div><input type=\"radio\" name=\"categorie\" value=\"$DB_categorie\" id=\"$DB_categorie\"";
@@ -228,11 +232,14 @@
             ?>
         </div>
         <div class="form-row color-inputs">
-            <p>product colors (optionnal)</p>
+            <p class="input-title">product colors (optionnal)</p>
             <button type="button" class="add-color-input">add color</button>
-            <input type="color" name="color[]">
+            <div class="input-color">
+                <input type="color" name="color[]"><button type="button" class="remove-color-input mb-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
         </div>
         <div class="form-row file-container">
+            <p class="input-title">product image</p>
             <div id="preview"></div>
             <input type="file" name="image" id="image">
         </div>

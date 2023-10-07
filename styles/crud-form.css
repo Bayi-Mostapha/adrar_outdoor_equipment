@@ -6,6 +6,41 @@ form {
     margin-top: 10px;
 }
 
+.input-title {
+    font-weight: bold;
+}
+
+.add-color-input {
+    margin: 5px 0 10px 0;
+    display: block;
+    padding: .25em 1em;
+    border-radius: 5px;
+
+    background-color: rgb(255, 210, 180);
+    color: var(--main-color);
+    font-weight: 700;
+}
+
+.input-color {
+    margin: 5px 0;
+    display: block;
+    width: fit-content;
+    position: relative;
+}
+
+.input-color .remove-color-input {
+    padding: 3px 5px;
+    font-size: .6rem;
+    border-radius: 50%;
+
+    position: absolute;
+    top: -5px;
+    right: -5px;
+
+    background-color: #D32F2F;
+    color: white;
+}
+
 .file-container {
     border: 2px dashed var(--gray-txt);
     padding: 10px;

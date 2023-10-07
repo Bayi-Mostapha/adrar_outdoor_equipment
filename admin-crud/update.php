@@ -12,6 +12,7 @@
     $price = "";
     $product_categorie = "";
     $colors = array();
+    $product_img_prev = "";
     $flag = false;
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -156,18 +157,21 @@
             $stmtDelete->bind_param("i", $product_id);
             $stmtDelete->execute();
         
-            $sqlInsert = "INSERT INTO colors (product_id, color) VALUES (?, ?);";
-            $stmtInsert = $mysqli->stmt_init();
-            if (!$stmtInsert->prepare($sqlInsert)) {
+            $sqlColor = "INSERT INTO colors (product_id, color) VALUES (?, ?);";
+            $stmtColor = $mysqli->stmt_init();
+            if (!$stmtColor->prepare($sqlColor)) {
                 die("SQL error: " . $mysqli->error);
             }
             foreach ($colors as $color) {
-                $stmtInsert->bind_param("is", $product_id, $color);
-                $stmtInsert->execute();
+                if ($color != "not-color") {
+                    $escapedColor = $mysqli->real_escape_string($color);
+                    $stmtColor->bind_param("is", $product_id, $escapedColor); 
+                    $stmtColor->execute();
+                }
             }
         
             $stmtDelete->close();
-            $stmtInsert->close();
+            $stmtColor->close();
         }  
         if($flag){
             header("Location: ../admin.php?succes=update");
@@ -196,6 +200,7 @@
             $product_desc = $row["product_desc"];
             $price = $row["price"];
             $product_categorie = $row["categorie"];
+            $product_img_prev = $row["product_img"];
         } else {
             header("Location: ../admin.php");
             exit();
@@ -292,19 +297,19 @@
     <form action="update.php" method="post" enctype="multipart/form-data">
         <input type="hidden" name="id" value="<?php echo $id; ?>">
         <div class="form-row">
-            <label for="name">product name</label>
+            <label for="name" class="input-title">product name</label>
             <input type="text" name="name" id="name" value="<?php echo $product_name; ?>">
         </div>
         <div class="form-row">
-            <label for="desc">product description</label>
+            <label for="desc" class="input-title">product description</label>
             <textarea name="desc" id="desc" cols="30" rows="10"><?php echo $product_desc; ?></textarea>
         </div>
         <div class="form-row">
-            <label for="price">product price</label>
+            <label for="price" class="input-title">product price</label>
             <input type="text" name="price" id="price" value="<?php echo $price; ?>">
         </div>
         <div class="form-row">
-            <p>product categorie</p>
+            <p class="input-title">product categorie</p>
             <?php
                 foreach ($DB_categories as $DB_categorie) {
                     echo "<div><input type=\"radio\" name=\"categorie\" value=\"$DB_categorie\" id=\"$DB_categorie\"";
@@ -316,16 +321,23 @@
             ?>
         </div>
         <div class="form-row color-inputs">
-            <p>product colors (optionnal)</p>
+            <p class="input-title">product colors (optionnal)</p>
             <button type="button" class="add-color-input">add color</button>
             <?php
                 foreach($colors as $color){
-                    echo"<input type=\"color\" name=\"color[]\" value=\"$color\">";
+                    echo"
+                    <div class=\"input-color\">
+                        <input type=\"color\" name=\"color[]\" value=\"$color\"><button type=\"button\" class=\"remove-color-input mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                    </div>
+                    ";
                 }
             ?>
         </div>
         <div class="form-row file-container">
-            <div id="preview"></div>
+            <p class="input-title">product image</p>
+            <div id="preview" class="visible">
+                <img src="<?php echo "../uploads/" . $product_img_prev; ?>">
+            </div>
             <input type="file" name="image" id="image">
         </div>
         <div class="btns">

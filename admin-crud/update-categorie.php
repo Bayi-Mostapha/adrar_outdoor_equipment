@@ -9,6 +9,7 @@
     $id = null;
     $categorie_name = "";
     $old_categorie = "";
+    $categorie_img_prev = "";
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $categorie_id = $mysqli->real_escape_string($_POST["id"]);
@@ -161,6 +162,7 @@
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             $categorie_name = $row["categorie_name"];
+            $categorie_img_prev = $row["image"];
         } else {
             header("Location: ../admin.php");
             exit();
@@ -220,7 +222,9 @@
             <input type="text" name="name" id="name" value="<?php echo $categorie_name; ?>">
         </div>
         <div class="form-row file-container">
-            <div id="preview"></div>
+            <div id="preview" class="visible">
+                <img src="<?php echo "../uploads/" . $categorie_img_prev; ?>">
+            </div>
             <input type="file" name="image" id="image">
         </div>
         <div class="btns">
