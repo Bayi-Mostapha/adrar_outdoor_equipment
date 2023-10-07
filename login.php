@@ -111,6 +111,7 @@
             <input type="password" name="password" id="password">
         </div>
         <button type="submit" class="submit mb-btn">login</button>
+        <p class="login-signup-link">don't have an account? <a href="sign-up.php">sign up</a></p>
     </form>
     <?php include "componants/icons.php"; ?>
     <script src="js/general.js"></script>

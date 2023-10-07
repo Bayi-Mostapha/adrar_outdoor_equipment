@@ -49,6 +49,16 @@ form .submit {
     text-transform: capitalize;
 }
 
+.login-signup-link {
+    color: var(--txt2);
+    text-align: center;
+}
+
+.login-signup-link a {
+    color: var(--main-color);
+    font-weight: 700;
+}
+
 @media (max-width:280px) {
     form {
         width: 95%;

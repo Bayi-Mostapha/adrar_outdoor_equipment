@@ -75,6 +75,7 @@
             <input type="password" name="confirm_password" id="confirm_password">
         </div>
         <button type="submit" class="submit">sign up</button>
+        <p class="login-signup-link">already have an account? <a href="admin-login.php">login</a></p>
     </form>
     <?php include "componants/icons.php"; ?>
     <script src="js/general.js"></script>
