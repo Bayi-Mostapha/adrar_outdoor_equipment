@@ -118,7 +118,7 @@ body {
 }
 
 .btn-icon {
-    font-size: var(--small);
+    font-size: .6rem;
 }
 
 /* ==== form styles ==== */

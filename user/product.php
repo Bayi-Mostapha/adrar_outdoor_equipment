@@ -129,39 +129,49 @@
                 <form action="cart-handler.php" method="post">
                     <input type="hidden" name="categorie" value=<?php echo $categorie; ?>>
                     <input type="hidden" name="product_id" value=<?php echo $id; ?>>
-                    <h1><?php echo htmlspecialchars($product_name); ?></h1>
-                    <p class="price"><?php echo htmlspecialchars($product_price); ?></p>
-                    <h2>description</h2>
-                    <p><?php echo htmlspecialchars($product_desc); ?></p>
-                    <h2>colors</h2>
-                    <div class="colors">
-                        <?php
-                            $flag = false;
-                            foreach($colors as $color) {
-                                if($flag) {
-                                    echo "
-                                    <div class=\"product-color-wrapper\">
-                                        <label for=\"color" . htmlspecialchars($color) . "\" class=\"product-color\" style=\"background-color: " . htmlspecialchars($color) . ";\"></label>
-                                        <input type=\"radio\" class=\"color-radio\" id=\"color" . htmlspecialchars($color) . "\" name=\"color\" value=\"" . htmlspecialchars($color) . "\">
-                                    </div>
-                                    ";
-                                } else {
-                                    echo "
-                                    <div class=\"product-color-wrapper\">
-                                        <label for=\"color" . htmlspecialchars($color) . "\" class=\"product-color checked\" style=\"background-color: " . htmlspecialchars($color) . ";\"></label>
-                                        <input type=\"radio\" class=\"color-radio\" id=\"color" . htmlspecialchars($color) . "\" name=\"color\" value=\"" . htmlspecialchars($color) . "\" checked>
-                                    </div>
-                                    ";
-                                    $flag = true;
-                                }
-                            }
-                        ?>
+                    <div class="product-row">
+                        <h1><?php echo htmlspecialchars($product_name); ?></h1>
                     </div>
-                    <h2>quantity</h2>
-                    <div class="number-input">
-                        <button type="button" class="minus">-</button>
-                        <input type="text" name="quantity" class="quantity" value="1">
-                        <button type="button" class="plus">+</button>
+                    <div class="product-row">
+                        <p class="price">$<?php echo htmlspecialchars($product_price); ?></p>
+                    </div>
+                    <div class="product-row">
+                        <h2>description</h2>
+                        <p><?php echo htmlspecialchars($product_desc); ?></p>
+                    </div>
+                    <div class="product-row">
+                        <h2>color</h2>
+                        <div class="colors">
+                            <?php
+                                $flag = false;
+                                foreach($colors as $color) {
+                                    if($flag) {
+                                        echo "
+                                        <div class=\"product-color-wrapper\">
+                                            <label for=\"color" . htmlspecialchars($color) . "\" class=\"product-color\" style=\"background-color: " . htmlspecialchars($color) . ";\"></label>
+                                            <input type=\"radio\" class=\"color-radio\" id=\"color" . htmlspecialchars($color) . "\" name=\"color\" value=\"" . htmlspecialchars($color) . "\">
+                                        </div>
+                                        ";
+                                    } else {
+                                        echo "
+                                        <div class=\"product-color-wrapper\">
+                                            <label for=\"color" . htmlspecialchars($color) . "\" class=\"product-color checked\" style=\"background-color: " . htmlspecialchars($color) . ";\"></label>
+                                            <input type=\"radio\" class=\"color-radio\" id=\"color" . htmlspecialchars($color) . "\" name=\"color\" value=\"" . htmlspecialchars($color) . "\" checked>
+                                        </div>
+                                        ";
+                                        $flag = true;
+                                    }
+                                }
+                            ?>
+                        </div>
+                    </div>
+                    <div class="product-row">
+                        <h2>quantity</h2>
+                        <div class="number-input">
+                            <button type="button" class="minus mb-btn">-</button>
+                            <input type="text" name="quantity" class="quantity" value="1">
+                            <button type="button" class="plus mb-btn">+</button>
+                        </div>
                     </div>
                     <?php
                         if(isset($_SESSION["id"])){
