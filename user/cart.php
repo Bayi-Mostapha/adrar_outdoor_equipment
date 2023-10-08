@@ -43,7 +43,7 @@
                         </div>";
                     }
                 } else if(isset($_GET["error"])){
-                    $error = $_GET["error"]
+                    $error = $_GET["error"];
                     if($error == "unknown") {
                         echo "
                         <div class=\"errors\">
@@ -72,7 +72,6 @@
                                 <img src=\"../uploads/$row[product_img]\">
                             </div>
                             <h2>" . htmlspecialchars($row["product_name"], ENT_QUOTES, 'UTF-8') . "</h2>
-                            <p>" . htmlspecialchars($row["product_desc"], ENT_QUOTES, 'UTF-8') . "</p>
                             <p>" . htmlspecialchars($row["price"], ENT_QUOTES, 'UTF-8') . "</p>
                             <div class=\"cart-color\" style=\"background-color: " . htmlspecialchars($row2["color"], ENT_QUOTES, 'UTF-8') . ";\"></div>
                             <p>" . htmlspecialchars($row2["quantity"] , ENT_QUOTES, 'UTF-8') . "</p>

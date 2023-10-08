@@ -23,7 +23,6 @@ form {
 
 .input-color {
     margin: 5px 0;
-    display: block;
     width: fit-content;
     position: relative;
 }
@@ -51,7 +50,6 @@ form {
 
 #preview.visible {
     width: 10rem;
-    height: 10rem;
 }
 
 #preview img {

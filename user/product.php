@@ -73,7 +73,6 @@
 <body>
     <?php
         if(isset($_SESSION["id"])){
-        include_once "../session-config.php";
             echo "
                 <div class=\"navbar\">
                     <div class=\"logo\">
