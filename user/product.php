@@ -79,6 +79,7 @@
                         <img src=\"../images/logo.png\">
                     </div>
                     <div class=\"btns\">
+                        <a href=\"../home.php\" class=\"icon-btn\"><i class=\"fa-solid fa-house\"></i></a>
                         <a href=\"cart.php\" class=\"icon-btn\"><i class=\"fa-solid fa-cart-shopping\"></i></a>
                         <a href=\"logout.php\" class=\"icon-btn\"><i class=\"fa-solid fa-arrow-right-from-bracket\"></i></a>
                     </div>
@@ -90,7 +91,10 @@
                     <div class=\"logo\">
                         <img src=\"../images/logo.png\">
                     </div>
-                    <a href=\"../login.php\" class=\"icon-btn\"><i class=\"fa-solid fa-right-to-bracket\"></i></a>
+                    <div class=\"btns\">
+                        <a href=\"../home.php\" class=\"icon-btn\"><i class=\"fa-solid fa-house\"></i></a>
+                        <a href=\"../login.php\" class=\"icon-btn\"><i class=\"fa-solid fa-right-to-bracket\"></i></a>
+                    </div>
                 </div>
                 ";
         }

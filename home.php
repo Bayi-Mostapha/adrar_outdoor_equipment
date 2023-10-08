@@ -32,7 +32,7 @@
                     outdoor adventure and camping needs. We offer a vast selection of top-quality
                      gear, from rugged backpacks to cozy sleeping bags, ensuring you're well-equipped
                       for your next expedition.</p>
-                    <button class=\"scroll-down mb-btn bg-content\"><i class=\"fa-solid fa-arrow-down\"></i></button>
+                    <button class=\"scroll-down mb-btn\"><i class=\"fa-solid fa-arrow-down\"></i></button>
                 </div>
                 ";
         } else {

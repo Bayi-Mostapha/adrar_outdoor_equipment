@@ -91,3 +91,15 @@
     color: var(--txt2);
     border-radius: 4px;
 }
+
+@media (max-width:600px) {
+    .main-product {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .main-product .left,
+    .main-product .right {
+        width: 100%;
+    }
+}

@@ -72,9 +72,9 @@
                                 <img src=\"../uploads/$row[product_img]\">
                             </div>
                             <h2>" . htmlspecialchars($row["product_name"], ENT_QUOTES, 'UTF-8') . "</h2>
-                            <p>" . htmlspecialchars($row["price"], ENT_QUOTES, 'UTF-8') . "</p>
+                            <p>" .  htmlspecialchars($row2["quantity"] , ENT_QUOTES, 'UTF-8') . " x " . htmlspecialchars($row["price"], ENT_QUOTES, 'UTF-8') . "$</p>
                             <div class=\"cart-color\" style=\"background-color: " . htmlspecialchars($row2["color"], ENT_QUOTES, 'UTF-8') . ";\"></div>
-                            <p>" . htmlspecialchars($row2["quantity"] , ENT_QUOTES, 'UTF-8') . "</p>
+                            <p>quantity: </p>
                             <a href=\"cart-delete.php?id=" . htmlspecialchars($row["id"], ENT_QUOTES, 'UTF-8') . "&color=%23$urlColor&quantity=" . htmlspecialchars($row2["quantity"], ENT_QUOTES, 'UTF-8') . "\" class=\"delete mb-btn\">
                                 <i class=\"fa-solid fa-trash\"></i>
                                 remove from cart
@@ -83,7 +83,7 @@
                         ";
                     }
                 } else {
-                    echo "<p>your cart is empty</p>";
+                    echo "<p>your cart is empty <a href=\"../home.php\" class=\"link\">explore products!</a></p>";
                 }
             ?>
         </div>

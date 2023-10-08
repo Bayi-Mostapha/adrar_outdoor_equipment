@@ -132,6 +132,9 @@ p.bg-content {
     justify-content: center;
     align-items: center;
 
+    position: relative;
+    z-index: 3;
+
     color: var(--txt2);
     border: 3px solid var(--txt2);
     font-size: var(--big);
@@ -173,4 +176,25 @@ p.bg-content {
 
     background-color: var(--txt2);
     box-shadow: var(--light-border);
+}
+
+@media (max-width:780px) {
+    .bg-content {
+        width: 100%;
+        text-align: center;
+    }
+
+    .home-bg .btns {
+        justify-content: center;
+    }
+
+    .categories {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width:450px) {
+    .categories {
+        grid-template-columns: 1fr;
+    }
 }
