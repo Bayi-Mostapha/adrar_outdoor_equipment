@@ -39,7 +39,13 @@
             die("SQL error: " . $mysqli->error);
         }
         $stmt->bind_param("s", $product_categorie);
-        $stmt->execute();
+        try{
+            $stmt->execute();
+        }catch(mysqli_sql_exception){
+            //a code that sends error to my email (database error)
+            header("Location: ../admin.php?error=unknown");
+            exit();
+        }
         $result = $stmt->get_result();
         if ($result->num_rows <= 0) {
             header("Location: ../update.php?error=categorie_not_exists");
@@ -95,12 +101,21 @@
                 die("SQL error: " . $mysqli->error);
             }
             $img_stmt->bind_param("i", $product_id);
-            $img_stmt->execute();
+            try{
+                $stmt->execute();
+            }catch(mysqli_sql_exception){
+                //a code that sends error to my email (database error)
+                header("Location: ../admin.php?error=unknown");
+                exit();
+            }
             $product_img = "";
             $img_result = $img_stmt->get_result();
             if ($img_result->num_rows > 0) {
                 $img_row = $img_result->fetch_assoc();
                 $product_img = $img_row["product_img"];
+            } else {
+                header("Location: ../admin.php");
+                exit();
             }
             $path = "../uploads/$product_img";
             
@@ -137,7 +152,13 @@
                 die("SQL error: " . $mysqli->error);
             }
             $stmt->bind_param("sssds", $product_name, $product_desc, $filename, $price, $product_categorie);
-            $stmt->execute();
+            try{
+                $stmt->execute();
+            }catch(mysqli_sql_exception){
+                //a code that sends error to my email (database error)
+                header("Location: ../admin.php?error=unknown");
+                exit();
+            }
             unlink($path);
             $flag = true;
         } else {
@@ -147,7 +168,13 @@
                 die("SQL error: " . $mysqli->error);
             }
             $stmt->bind_param("ssds", $product_name, $product_desc, $price, $product_categorie);
-            $stmt->execute();
+            try{
+                $stmt->execute();
+            }catch(mysqli_sql_exception){
+                //a code that sends error to my email (database error)
+                header("Location: ../admin.php?error=unknown");
+                exit();
+            }
             $flag = true;
         }
         if (isset($colors)) {
@@ -157,7 +184,13 @@
                 die("SQL error: " . $mysqli->error);
             }
             $stmtDelete->bind_param("i", $product_id);
-            $stmtDelete->execute();
+            try{
+                $stmtDelete->execute();
+            }catch(mysqli_sql_exception){
+                //a code that sends error to my email (database error)
+                header("Location: ../admin.php?error=unknown");
+                exit();
+            }
         
             $sqlColor = "INSERT INTO colors (product_id, color) VALUES (?, ?);";
             $stmtColor = $mysqli->stmt_init();
@@ -168,7 +201,13 @@
                 if ($color != "not-color") {
                     $escapedColor = strtolower($mysqli->real_escape_string($color));
                     $stmtColor->bind_param("is", $product_id, $escapedColor); 
-                    $stmtColor->execute();
+                    try{
+                        $stmt->execute();
+                    }catch(mysqli_sql_exception){
+                        //a code that sends error to my email (database error)
+                        header("Location: ../admin.php?error=unknown");
+                        exit();
+                    }
                 }
             }
         

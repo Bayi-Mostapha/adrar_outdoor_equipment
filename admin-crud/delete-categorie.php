@@ -17,7 +17,12 @@
             die("SQL error: " . $mysqli->error);
         }
         $stmt->bind_param("i", $id);
-        $stmt->execute();
+        try{
+            $stmt->execute();
+        }catch(mysqli_sql_exception){
+            header("Location: ../admin.php?error=unknown");
+            exit();
+        }
         $result = $stmt->get_result();
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
@@ -32,7 +37,12 @@
             die("SQL error: " . $mysqli->error);
         }
         $stmt->bind_param("s", $categorie_name);
-        $stmt->execute();
+        try{
+            $stmt->execute();
+        }catch(mysqli_sql_exception){
+            header("Location: ../admin.php?error=unknown");
+            exit();
+        }
         $result = $stmt->get_result();
 
         if ($result->num_rows > 0) {
@@ -45,7 +55,12 @@
                 die("SQL error: " . $mysqli->error);
             }
             $img_stmt->bind_param("i", $id);
-            $img_stmt->execute();
+            try{
+                $stmt->execute();
+            }catch(mysqli_sql_exception){
+                header("Location: ../admin.php?error=unknown");
+                exit();
+            }
             $img_result = $img_stmt->get_result();
             if ($img_result->num_rows > 0) {
                 $img_row = $img_result->fetch_assoc();
@@ -63,7 +78,12 @@
                 die("SQL error: " . $mysqli->error);
             }
             $stmt->bind_param("i", $id);
-            $stmt->execute();
+            try{
+                $stmt->execute();
+            }catch(mysqli_sql_exception){
+                header("Location: ../admin.php?error=unknown");
+                exit();
+            }
         }
 
         header("Location: ../admin.php?succes=delete-categorie");

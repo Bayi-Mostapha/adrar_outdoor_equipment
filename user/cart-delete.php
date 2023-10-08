@@ -25,7 +25,13 @@
             die("SQL error: " . $mysqli->error);
         }
         $stmt->bind_param("iiss", $id, $user_id, $color, $quantity);
-        $stmt->execute();
+        try{
+            $stmt->execute();
+        }catch(mysqli_sql_exception){
+            //a code that sends error to my email (database error)
+            header("Location: cart.php?error=unknown");
+            exit();
+        }
         header("Location: cart.php?succes=remove");
         exit();
     }else{

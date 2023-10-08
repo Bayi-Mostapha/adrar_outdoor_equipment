@@ -59,6 +59,29 @@
         </div>
         <a href="admin-logout.php" class="icon-btn"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
     </div>
+    <?php
+    if($_SERVER["REQUEST_METHOD"] == "GET"){
+        if(isset($_GET["error"])) {
+            $error = $_GET["error"];
+            if($error == "zero_products") {
+                echo "
+                <div class=\"errors\">
+                    <p class=\"error\">there no products to delete</p>
+                    <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                </div>";
+            } elseif($error == "unkown") {
+                echo "
+                <div class=\"errors\">
+                    <p class=\"error\">unknown error, please try again later</p>
+                   <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                </div>";
+            } else {
+                header("Location: categorie-products.php");
+                exit();
+            }
+        }
+    }
+    ?>
     <main>
         <h1>welcome <?php echo htmlspecialchars($_SESSION["name"], ENT_QUOTES, 'UTF-8'); ?>, check <span class="color"><?php echo $htmlcategorie;?></span> products</h1>
         <div class="btns">
@@ -75,8 +98,13 @@
                     die("SQL error: " . $mysqli->error);
                 }
                 $stmt->bind_param("s", $categorie);
-                $stmt->execute();
-        
+                try{
+                    $stmt->execute();
+                }catch(mysqli_sql_exception){
+                    //a code that sends error to my email (database error)
+                    header("Location: ../admin.php");
+                    exit();
+                }
                 $result = $stmt->get_result();
                 if ($result->num_rows > 0) {
                     while($row = mysqli_fetch_assoc($result)){

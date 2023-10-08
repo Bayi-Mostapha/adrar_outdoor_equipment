@@ -42,6 +42,15 @@
                             <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
                         </div>";
                     }
+                } else if(isset($_GET["error"])){
+                    $error = $_GET["error"]
+                    if($error == "unknown") {
+                        echo "
+                        <div class=\"errors\">
+                            <p class=\"error\">unknown error, please try again later</p>
+                           <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                        </div>";
+                    }
                 }
             }
         ?>
@@ -53,7 +62,7 @@
 
                 if(mysqli_num_rows($result2) > 0) {
                     while($row2 = mysqli_fetch_assoc($result2)){
-                        $sql = "SELECT * FROM products WHERE id=$row2[product_id]";
+                        $sql = "SELECT * FROM products WHERE id=" . $mysqli->real_escape_string($row2["product_id"]);
                         $result = mysqli_query($mysqli, $sql);
                         $row = mysqli_fetch_assoc($result);
                         $urlColor = htmlspecialchars(substr($row2["color"], 1), ENT_QUOTES, 'UTF-8');

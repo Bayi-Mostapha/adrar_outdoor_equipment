@@ -21,7 +21,7 @@
         try{
             $stmt->execute();
         } catch(mysqli_sql_exception) {
-            header("Location: login.php?error=invalid_email");
+            header("Location: login.php?error=unknown");
             exit();
         }
 
@@ -81,6 +81,12 @@
                         echo "
                         <div class=\"errors\">
                             <p class=\"error\">an account with this email does not exist, <a href=\"sign-up.php\">sign up</a></p>
+                        </div>";
+                    } elseif($error == "unknown") {
+                        echo "
+                        <div class=\"errors\">
+                            <p class=\"error\">unknown error, please try again later</p>
+                            <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
                         </div>";
                     } else {
                         header("Location: login.php");

@@ -45,6 +45,12 @@
                         <div class=\"errors\">
                             <p class=\"error\">email already taken</p>
                         </div>";
+                    } elseif($error == "unknown") {
+                        echo "
+                        <div class=\"errors\">
+                            <p class=\"error\">unknown error, please try again later</p>
+                            <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                        </div>";
                     } else {
                         header("Location: admin-sign-up.php");
                         exit();

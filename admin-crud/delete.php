@@ -16,7 +16,12 @@
             die("SQL error: " . $mysqli->error);
         }
         $img_stmt->bind_param("i", $id);
-        $img_stmt->execute();
+        try{
+            $img_stmt->execute();
+        }catch(mysqli_sql_exception){
+            header("Location: ../admin.php?error=unknown");
+            exit();
+        }
         $img_result = $img_stmt->get_result();
         if ($img_result->num_rows > 0) {
             $img_row = $img_result->fetch_assoc();
@@ -34,21 +39,36 @@
             die("SQL error: " . $mysqli->error);
         }
         $stmt->bind_param("i", $id);
-        $stmt->execute();
+        try{
+            $stmt->execute();
+        }catch(mysqli_sql_exception){
+            header("Location: ../admin.php?error=unknown");
+            exit();
+        }
 
         $sql = "DELETE FROM cart WHERE product_id=?;";
         if(!$stmt->prepare($sql)){
             die("SQL error: " . $mysqli->error);
         }
         $stmt->bind_param("i", $id);
-        $stmt->execute();
+        try{
+            $stmt->execute();
+        }catch(mysqli_sql_exception){
+            header("Location: ../admin.php?error=unknown");
+            exit();
+        }
 
         $sql = "DELETE FROM colors WHERE product_id=?;";
         if(!$stmt->prepare($sql)){
             die("SQL error: " . $mysqli->error);
         }
         $stmt->bind_param("i", $id);
-        $stmt->execute();
+        try{
+            $stmt->execute();
+        }catch(mysqli_sql_exception){
+            header("Location: ../admin.php?error=unknown");
+            exit();
+        }
 
         header("Location: ../admin.php?succes=delete");
         exit();

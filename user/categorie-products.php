@@ -75,7 +75,13 @@
                     die("SQL error: " . $mysqli->error);
                 }
                 $stmt->bind_param("s", $categorie);
-                $stmt->execute();
+                try{
+                    $stmt->execute();
+                }catch(mysqli_sql_exception){
+                    //a code that sends error to my email (database error)
+                    header("Location: ../home.php?error=unknown");
+                    exit();
+                }
                 $result = $stmt->get_result();
                 if ($result->num_rows > 0) {
                     while($row = mysqli_fetch_assoc($result)){

@@ -10,13 +10,18 @@
     $categorie =  $mysqli->real_escape_string($_GET["categorie"]);
 
     $sql = "SELECT * FROM products WHERE categorie = ?";
-    $img = $mysqli->stmt_init();
-    if(!$img->prepare($sql)){
+    $stmt = $mysqli->stmt_init();
+    if(!$stmt->prepare($sql)){
         die("SQL error: " . $mysqli->error);
     }
-    $img->bind_param("s", $categorie);
-    $img->execute();
-    $result = $img->get_result();
+    $stmt->bind_param("s", $categorie);
+    try{
+        $stmt->execute();
+    }catch(mysqli_sql_exception){
+        header("Location: categorie-products.php?categorie=$categorie&error=unknown");
+        exit();
+    }
+    $result = $stmt->get_result();
     if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()){
             $product = $row["product_img"];
@@ -32,7 +37,12 @@
                 die("SQL error: " . $mysqli->error);
             }
             $stmt2->bind_param("i", $row["id"]);
-            $stmt2->execute();
+            try{
+                $stmt2->execute();
+            }catch(mysqli_sql_exception){
+                header("Location: categorie-products.php?categorie=$categorie&error=unknown");
+                exit();
+            }
 
             $sql3 = "DELETE FROM cart WHERE product_id=?;";
             $stmt3 = $mysqli->stmt_init();
@@ -40,7 +50,12 @@
                 die("SQL error: " . $mysqli->error);
             }
             $stmt3->bind_param("i", $row["id"]);
-            $stmt3->execute();
+            try{
+                $stmt3->execute();
+            }catch(mysqli_sql_exception){
+                header("Location: categorie-products.php?categorie=$categorie&error=unknown");
+                exit();
+            }
 
             $sql4 = "DELETE FROM colors WHERE product_id=?;";
             $stmt4 = $mysqli->stmt_init();
@@ -48,8 +63,16 @@
                 die("SQL error: " . $mysqli->error);
             }
             $stmt4->bind_param("i", $row["id"]);
-            $stmt4->execute();
+            try{
+                $stmt4->execute();
+            }catch(mysqli_sql_exception){
+                header("Location: categorie-products.php?categorie=$categorie&error=unknown");
+                exit();
+            }
         }
+    } else {
+        header("Location: categorie-products.php?categorie=$categorie&error=zero_products");
+        exit();
     }
 
     header("Location: ../admin.php?succes=delete_all");

@@ -16,7 +16,12 @@
             die("SQL error: " . $mysqli->error);
         }
         $stmt->bind_param("i", $id);
-        $stmt->execute();
+        try{
+            $stmt->execute();
+        }catch(mysqli_sql_exception){
+            header("Location: ../admin.php?error=unknown");
+            exit();
+        }
         
         header("Location: ../admin.php?succes=admin_denied");
         exit();

@@ -86,7 +86,12 @@
         }
         $categorie_name = strtolower($categorie_name);
         $stmt->bind_param("ss", $categorie_name, $filename);
-        $stmt->execute();
+        try {
+            $stmt->execute();
+        } catch(mysqli_sql_exception) {
+            header("Location: create-categorie.php?error=categorie_exists");
+            exit();
+        }
         header("Location: ../admin.php?succes=create-categorie");
         exit();
     }
@@ -129,7 +134,14 @@
                         <p class=\"error\">there was an error while uploading your file</p>
                        <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
                     </div>";
-                } else {
+                } elseif($error == "categorie_exists") {
+                    echo "
+                    <div class=\"errors\">
+                        <p class=\"error\">this categorie already exits</p>
+                        <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                    </div>
+                    ";
+                }  else {
                     header("Location: create-categorie.php");
                     exit();
                 }

@@ -56,6 +56,18 @@
                 </div>
                 ";
         }
+        if($_SERVER["REQUEST_METHOD"] == "GET"){
+            if(isset($_GET["error"])){
+                $error = $_GET["error"];
+                if($error == "unknown") {
+                    echo "
+                    <div class=\"errors\">
+                        <p class=\"error\">unknown error, please try again later</p>
+                        <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                    </div>";
+                }
+            }
+        }
     ?>
     <main class="scroll-dest">
         <h2 class="cat-title">explore our categories</h2>

@@ -30,7 +30,13 @@
             die("SQL error: " . $mysqli->error);
         }
         $stmt->bind_param("i", $categorie_id);
-        $stmt->execute();
+        try{
+            $stmt->execute();
+        }catch(mysqli_sql_exception){
+            //a code that sends error to my email (database error)
+            header("Location: ../admin.php");
+            exit();
+        }
         $result = $stmt->get_result();
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
@@ -88,7 +94,13 @@
                 die("SQL error: " . $mysqli->error);
             }
             $img_stmt->bind_param("i", $categorie_id);
-            $img_stmt->execute();
+            try{
+                $img_stmt->execute();
+            }catch(mysqli_sql_exception){
+                //a code that sends error to my email (database error)
+                header("Location: ../admin.php");
+                exit();
+            }
             $categorie_img = "";
             $img_result = $img_stmt->get_result();
             if ($img_result->num_rows > 0) {
@@ -130,7 +142,12 @@
                 die("SQL error: " . $mysqli->error);
             }
             $stmt->bind_param("ss", $categorie_name, $filename);
-            $stmt->execute();
+            try{
+                $stmt->execute();
+            }catch(mysqli_sql_exception){
+                header("Location: update-categorie.php?error=categorie_exists");
+                exit();
+            }
             unlink($path);
         } else {
             $sql = "UPDATE categories SET categorie_name = ? WHERE id=$categorie_id;";
@@ -139,7 +156,12 @@
                 die("SQL error: " . $mysqli->error);
             }
             $stmt->bind_param("s", $categorie_name);
-            $stmt->execute();
+            try{
+                $stmt->execute();
+            }catch(mysqli_sql_exception){
+                header("Location: update-categorie.php?error=categorie_exists");
+                exit();
+            }
         }
 
         $sql = "UPDATE products SET categorie=? WHERE categorie=?";
@@ -148,7 +170,13 @@
             die("SQL error: " . $mysqli->error);
         }
         $stmt->bind_param("ss", $categorie_name, $old_categorie);
-        $stmt->execute();
+        try{
+            $stmt->execute();
+        }catch(mysqli_sql_exception){
+            //a code that sends error to my email (database error)
+            header("Location: ../admin.php");
+            exit();
+        }
         header("Location: ../admin.php?succes=update-categorie");
         exit();
     } elseif ($_SERVER["REQUEST_METHOD"] == "GET"){
@@ -165,7 +193,13 @@
             die("SQL error: " . $mysqli->error);
         }
         $stmt->bind_param("i", $id);
-        $stmt->execute();
+        try{
+            $stmt->execute();
+        }catch(mysqli_sql_exception){
+            //a code that sends error to my email (database error)
+            header("Location: ../admin.php");
+            exit();
+        }
 
         $result = $stmt->get_result();
         if ($result->num_rows > 0) {
@@ -217,6 +251,13 @@
                         <p class=\"error\">there was an error while uploading your file</p>
                         <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
                     </div>";
+                } elseif($error == "categorie_exists") {
+                    echo "
+                    <div class=\"errors\">
+                        <p class=\"error\">this categorie already exits</p>
+                        <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                    </div>
+                    ";
                 } else {
                     header("Location: update-categorie.php");
                     exit();

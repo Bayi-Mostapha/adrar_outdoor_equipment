@@ -19,7 +19,12 @@
             die("SQL error: " . $mysqli->error);
         }
         $stmt->bind_param("i", $id);
-        $stmt->execute();
+        try{
+            $stmt->execute();
+        }catch(mysqli_sql_exception){
+            header("Location: ../admin.php");
+            exit();
+        }
         $result = $stmt->get_result();
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
@@ -37,7 +42,12 @@
             die("SQL error: " . $mysqli->error);
         }
         $stmt->bind_param("sss", $name, $email, $password);
-        $stmt->execute();
+        try{
+            $stmt->execute();
+        }catch(mysqli_sql_exception){
+            header("Location: ../admin.php?error=admin_not_approved");
+            exit();
+        }
 
         $sql = "DELETE FROM admin_requests WHERE id=?;";
         $stmt = $mysqli->stmt_init();
@@ -45,7 +55,13 @@
             die("SQL error: " . $mysqli->error);
         }
         $stmt->bind_param("i", $id);
-        $stmt->execute();
+        try{
+            $stmt->execute();
+        }catch(mysqli_sql_exception){
+            //a code that sends error to my email
+            header("Location: ../admin.php");
+            exit();
+        }
         
         header("Location: ../admin.php?succes=admin_approved");
         exit();

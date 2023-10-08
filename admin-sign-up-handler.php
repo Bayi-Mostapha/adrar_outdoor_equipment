@@ -26,7 +26,12 @@
             die("SQL error: " . $mysqli->error);
         }
         $stmt->bind_param("s", $email);
-        $stmt->execute();
+        try{
+            $stmt->execute();
+        } catch(mysqli_sql_exception) {
+            header("Location: admin-sign-up.php?error=unknown");
+            exit();
+        }
         $result = mysqli_stmt_get_result($stmt);
         $row = mysqli_fetch_assoc($result);
         if($row){

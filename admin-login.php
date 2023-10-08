@@ -21,13 +21,13 @@
         try{
             $stmt->execute();
         } catch(mysqli_sql_exception) {
-            header("Location: admin-login.php?error=invalid_email");
+            header("Location: admin-login.php?error=unknown");
             exit();
         }
 
-        $result = mysqli_stmt_get_result($stmt);
-        $row = mysqli_fetch_assoc($result);
-        if($row){
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            $row = mysqli_fetch_assoc($result);
             if (password_verify($password, $row["password"])){
                 session_start();
                 session_regenerate_id(true);
@@ -81,6 +81,12 @@
                         echo "
                         <div class=\"errors\">
                             <p class=\"error\">an account with this email does not exist</p>
+                        </div>";
+                    } elseif($error == "unknown") {
+                        echo "
+                        <div class=\"errors\">
+                            <p class=\"error\">unknown error, please try again later</p>
+                            <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
                         </div>";
                     } else {
                         header("Location: admin-login.php");

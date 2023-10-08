@@ -20,7 +20,13 @@
         die("SQL error: " . $mysqli->error);
     }
     $stmt->bind_param("i", $id);
-    $stmt->execute();
+    try{
+        $stmt->execute();
+    }catch(mysqli_sql_exception){
+        //a code that sends error to my email (database error)
+        header("Location: ../home.php?error=unknown");
+        exit();
+    }
     $result = $stmt->get_result();
     if ($result->num_rows > 0) {
         $row = mysqli_fetch_assoc($result);
@@ -40,7 +46,13 @@
         die("SQL error: " . $mysqli->error);
     }
     $stmt->bind_param("i", $id);
-    $stmt->execute();
+    try{
+        $stmt->execute();
+    }catch(mysqli_sql_exception){
+        //a code that sends error to my email (database error)
+        header("Location: ../home.php?error=unknown");
+        exit();
+    }
 
     $result = $stmt->get_result();
     if ($result->num_rows > 0) {

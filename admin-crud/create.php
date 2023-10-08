@@ -28,10 +28,15 @@
             die("SQL error: " . $mysqli->error);
         }
         $stmt->bind_param("s", $product_categorie);
-        $stmt->execute();
+        try{
+            $stmt->execute();
+        }catch(mysqli_sql_exception){
+            header("Location: ../admin.php?error=unknown");
+            exit();
+        }
         $result = $stmt->get_result();
         if ($result->num_rows <= 0) {
-            header("Location: ../create.php?error=categorie_not_exists");
+            header("Location: create.php?error=categorie_not_exists");
             exit();
         }
         $stmt->close();
@@ -110,7 +115,13 @@
             die("SQL error: " . $mysqli->error);
         }
         $stmt->bind_param("sssds", $product_name, $product_desc, $filename, $product_price, $product_categorie);
-        $stmt->execute();
+        try{
+            $stmt->execute();
+        }catch(mysqli_sql_exception){
+            //send error to email
+            header("Location: admin.php?error=product_not_created");
+            exit();
+        }
         $id = $mysqli->insert_id;
 
         $sqlColor = "INSERT INTO colors (product_id, color) VALUES (?, ?);";
@@ -118,11 +129,20 @@
         if (!$stmtColor->prepare($sqlColor)) {
             die("SQL error: " . $mysqli->error);
         }
+        $color_pattern = '/^#([A-Fa-f0-9]{3}){1,2}$/';
         foreach ($colors as $color) {
-            if ($color != "not-color") {
-                $escapedColor = strtolower($mysqli->real_escape_string($color));
-                $stmtColor->bind_param("is", $id, $escapedColor);
+            $escapedColor = strtolower($mysqli->real_escape_string($color));
+            if(empty($escapedColor) || !preg_match($color_pattern, $escapedColor)){
+                header("Location: create.php?error=empty");
+                exit();
+            }
+            $stmtColor->bind_param("is", $id, $escapedColor);
+            try{
                 $stmtColor->execute();
+            }catch(mysqli_sql_exception){
+                //send error to email
+                header("Location: ../admin.php?error=unknown");
+                exit();
             }
         }
 

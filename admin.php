@@ -114,6 +114,32 @@
                             <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
                         </div>
                         ";
+                    } elseif($error == "admin_not_approved") {
+                        echo "
+                        <div class=\"errors\">
+                            <p class=\"error\">admin is not approved</p>
+                            <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                        </div>
+                        ";
+                    } elseif($error == "product_not_created") {
+                        echo "
+                        <div class=\"errors\">
+                            <p class=\"error\">product is not created, please try again later</p>
+                            <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                        </div>
+                        ";
+                    } elseif($error == "categorie_not_exists") {
+                        echo "
+                        <div class=\"errors\">
+                            <p class=\"error\">this categorie does not exist in database</p>
+                           <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                        </div>";
+                    } elseif($error == "unknown") {
+                        echo "
+                        <div class=\"errors\">
+                            <p class=\"error\">unknown error, please try again later</p>
+                           <button class=\"close-new mb-btn\"><i class=\"fa-solid fa-xmark\"></i></button>
+                        </div>";
                     } else {
                         header("Location: admin.php");
                         exit();
