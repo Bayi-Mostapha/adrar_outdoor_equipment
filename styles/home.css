@@ -37,9 +37,9 @@
 
     color: var(--txt2);
     background-color: black;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-position: center !important;
 }
 
 .categorie-bg .scroll-down {
@@ -55,6 +55,9 @@
     color: var(--txt2);
     background-color: black;
     background: url('../images/home-bg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
 .home-bg .btns {

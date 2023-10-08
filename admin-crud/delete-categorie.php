@@ -56,7 +56,7 @@
             }
             $img_stmt->bind_param("i", $id);
             try{
-                $stmt->execute();
+                $img_stmt->execute();
             }catch(mysqli_sql_exception){
                 header("Location: ../admin.php?error=unknown");
                 exit();
