@@ -44,7 +44,7 @@
             <div class=\"stat card\">
                 <p class=\"title\">total categories</p>
                 <p class=\"number\">" . htmlspecialchars($row["n"], ENT_QUOTES, 'UTF-8') . "</p>
-                <div class=\"icon\">
+                <div class=\"icon icon1\">
                     <i class=\"fa-solid fa-boxes-stacked\"></i>
                 </div>
             </div>
@@ -57,7 +57,7 @@
             <div class=\"stat card\">
                 <p class=\"title\">total products</p>
                 <p class=\"number\">" . htmlspecialchars($row["n"], ENT_QUOTES, 'UTF-8') . "</p>
-                <div class=\"icon\">
+                <div class=\"icon icon2\">
                     <i class=\"fa-solid fa-dolly\"></i>
                 </div>
             </div>
@@ -70,7 +70,7 @@
             <div class=\"stat card\">
                 <p class=\"title\">total users</p>
                 <p class=\"number\">" . htmlspecialchars($row["n"], ENT_QUOTES, 'UTF-8') . "</p>
-                <div class=\"icon\">
+                <div class=\"icon icon3\">
                     <i class=\"fa-solid fa-users\"></i>
                 </div>
             </div>
@@ -83,7 +83,7 @@
             <div class=\"stat card\">
                 <p class=\"title\">total admins</p>
                 <p class=\"number\">" . htmlspecialchars($row["n"], ENT_QUOTES, 'UTF-8') . "</p>
-                <div class=\"icon\">
+                <div class=\"icon icon4\">
                     <i class=\"fa-solid fa-user-tie\"></i>
                 </div>
             </div>
