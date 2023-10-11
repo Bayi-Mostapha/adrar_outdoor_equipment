@@ -31,7 +31,8 @@ if (minusBtn && quantityInput)
 if (quantityInput)
     quantityInput.addEventListener('input', () => {
         let n = quantityInput.value.replace(/[^0-9]/g, '');
-        if (n == '')
+        if (n == 0 || n == '') {
             n = 1;
-        quantityInput.value = n;
+            quantityInput.value = n;
+        }
     });
