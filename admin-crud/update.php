@@ -32,6 +32,10 @@
             header("Location: update.php?id=$product_id&error=empty");
             exit();
         }
+        if(!isset($colors)) {
+            header("Location: update.php?id=$product_id&error=empty");
+            exit();
+        }
 
         $sql = "SELECT * FROM categories WHERE categorie_name = ?";
         $stmt = $mysqli->stmt_init();
@@ -177,43 +181,44 @@
             }
             $flag = true;
         }
-        if (isset($colors)) {
-            $sqlDelete = "DELETE FROM colors WHERE product_id = ?;";
-            $stmtDelete = $mysqli->stmt_init();
-            if (!$stmtDelete->prepare($sqlDelete)) {
-                die("SQL error: " . $mysqli->error);
+        $sqlDelete = "DELETE FROM colors WHERE product_id = ?;";
+        $stmtDelete = $mysqli->stmt_init();
+        if (!$stmtDelete->prepare($sqlDelete)) {
+            die("SQL error: " . $mysqli->error);
+        }
+        $stmtDelete->bind_param("i", $product_id);
+        try{
+            $stmtDelete->execute();
+        }catch(mysqli_sql_exception){
+            //a code that sends error to my email (database error)
+            header("Location: ../admin.php?error=unknown");
+            exit();
+        }
+    
+        $sqlColor = "INSERT INTO colors (product_id, color) VALUES (?, ?);";
+        $stmtColor = $mysqli->stmt_init();
+        if (!$stmtColor->prepare($sqlColor)) {
+            die("SQL error: " . $mysqli->error);
+        }
+        $color_pattern = '/^#([A-Fa-f0-9]{3}){1,2}$/';
+        foreach ($colors as $color) {
+            $escapedColor = strtolower($mysqli->real_escape_string($color));
+            if(empty($escapedColor) || !preg_match($color_pattern, $escapedColor)){
+                header("Location: update.php?error=empty");
+                exit();
             }
-            $stmtDelete->bind_param("i", $product_id);
+            $stmtColor->bind_param("is", $id, $escapedColor);
             try{
-                $stmtDelete->execute();
+                $stmtColor->execute();
             }catch(mysqli_sql_exception){
-                //a code that sends error to my email (database error)
+                //send error to email
                 header("Location: ../admin.php?error=unknown");
                 exit();
             }
-        
-            $sqlColor = "INSERT INTO colors (product_id, color) VALUES (?, ?);";
-            $stmtColor = $mysqli->stmt_init();
-            if (!$stmtColor->prepare($sqlColor)) {
-                die("SQL error: " . $mysqli->error);
-            }
-            foreach ($colors as $color) {
-                if ($color != "not-color") {
-                    $escapedColor = strtolower($mysqli->real_escape_string($color));
-                    $stmtColor->bind_param("is", $product_id, $escapedColor); 
-                    try{
-                        $stmt->execute();
-                    }catch(mysqli_sql_exception){
-                        //a code that sends error to my email (database error)
-                        header("Location: ../admin.php?error=unknown");
-                        exit();
-                    }
-                }
-            }
-        
-            $stmtDelete->close();
-            $stmtColor->close();
-        }  
+        }
+    
+        $stmtDelete->close();
+        $stmtColor->close();
         if($flag){
             header("Location: ../admin.php?succes=update");
             exit();

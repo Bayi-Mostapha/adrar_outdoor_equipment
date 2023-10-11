@@ -21,6 +21,10 @@
             header("Location: create.php?error=empty");
             exit();
         }
+        if(!isset($colors)) {
+            header("Location: create.php?error=empty");
+            exit();
+        }
 
         $sql = "SELECT * FROM categories WHERE categorie_name = ?";
         $stmt = $mysqli->stmt_init();
